@@ -10,8 +10,8 @@ using SAAS_Deployment.Data;
 namespace SAAS_Deployment.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210331215231_client")]
-    partial class client
+    [Migration("20210331223336_test")]
+    partial class test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -252,6 +252,50 @@ namespace SAAS_Deployment.Migrations
                     b.ToTable("Client");
                 });
 
+            modelBuilder.Entity("SAAS_Deployment.Models.Employee", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateJoined")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("EmerContact")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("fullAddressStreet")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("fullAddressStreet");
+
+                    b.ToTable("Employee");
+                });
+
+            modelBuilder.Entity("SAAS_Deployment.Models.FullAddress", b =>
+                {
+                    b.Property<string>("Street")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Province")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Street");
+
+                    b.ToTable("FullAddress");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -301,6 +345,13 @@ namespace SAAS_Deployment.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("SAAS_Deployment.Models.Employee", b =>
+                {
+                    b.HasOne("SAAS_Deployment.Models.FullAddress", "fullAddress")
+                        .WithMany()
+                        .HasForeignKey("fullAddressStreet");
                 });
 #pragma warning restore 612, 618
         }

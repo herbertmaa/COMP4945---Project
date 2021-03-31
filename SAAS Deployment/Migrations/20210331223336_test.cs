@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SAAS_Deployment.Migrations
 {
-    public partial class client : Migration
+    public partial class test : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -61,6 +61,19 @@ namespace SAAS_Deployment.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Client", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FullAddress",
+                columns: table => new
+                {
+                    Street = table.Column<string>(nullable: false),
+                    City = table.Column<string>(nullable: true),
+                    Province = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FullAddress", x => x.Street);
                 });
 
             migrationBuilder.CreateTable(
@@ -169,6 +182,28 @@ namespace SAAS_Deployment.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Employee",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: false),
+                    fullAddressStreet = table.Column<string>(nullable: true),
+                    DateJoined = table.Column<DateTime>(nullable: false),
+                    EmerContact = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Employee", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Employee_FullAddress_fullAddressStreet",
+                        column: x => x.fullAddressStreet,
+                        principalTable: "FullAddress",
+                        principalColumn: "Street",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -207,6 +242,11 @@ namespace SAAS_Deployment.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Employee_fullAddressStreet",
+                table: "Employee",
+                column: "fullAddressStreet");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -230,10 +270,16 @@ namespace SAAS_Deployment.Migrations
                 name: "Client");
 
             migrationBuilder.DropTable(
+                name: "Employee");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "FullAddress");
         }
     }
 }
