@@ -14,7 +14,6 @@ namespace SAAS_Deployment.Models
         [Required]
         public string Name { get; set; }
 
-        [Required]
         public FullAddress fullAddress { get; set; }
 
         [Required]
