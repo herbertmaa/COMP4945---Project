@@ -12,5 +12,6 @@ namespace SAAS_Deployment.Data {
         }
         public DbSet<SAAS_Deployment.Models.Employee> Employee { get; set; }
         public DbSet<SAAS_Deployment.Models.FullAddress> FullAddress { get; set; }
+        public DbSet<SAAS_Deployment.Models.Client> Client { get; set; }
     }
 }
