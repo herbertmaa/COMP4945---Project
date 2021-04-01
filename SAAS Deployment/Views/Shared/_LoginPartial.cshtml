@@ -1,26 +1,38 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using SAAS_Deployment.Tenants
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
+@inject ITenantProvider tenantProvider
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor accessor
 
 <ul class="navbar-nav">
-@if (SignInManager.IsSignedIn(User))
-{
-    <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
-    </li>
-    <li class="nav-item">
-        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-        </form>
-    </li>
-}
-else
-{
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>
-}
+    @{
+        var tenant = tenantProvider.GetTenant();
+
+        var tenantNames = new Dictionary<string, string>{
+               { "organization", tenant.OrganizationName},
+               { "branch",  tenant.BranchName }
+            };
+
+        if (SignInManager.IsSignedIn(User))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
+            </li>
+            <li class="nav-item">
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-all-route-data="tenantNames">
+                    <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                </form>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register" asp-all-route-data="tenantNames">Register</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login" asp-all-route-data="tenantNames">Login</a>
+            </li>
+        }
+    }
 </ul>

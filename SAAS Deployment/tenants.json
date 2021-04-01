@@ -1,0 +1,20 @@
+[
+  {
+    "Id": 1,
+    "ConnectionString": "Server=(localdb)\\mssqllocaldb;Database=SaaS-Facebook-Burnaby;Trusted_Connection=True;MultipleActiveResultSets=true",
+    "OrganizationName": "Facebook",
+    "BranchName": "Burnaby"
+  },
+  {
+    "Id": 2,
+    "ConnectionString": "Server=(localdb)\\mssqllocaldb;Database=SaaS-Facebook-Vancouver;Trusted_Connection=True;MultipleActiveResultSets=true",
+    "OrganizationName": "Facebook",
+    "BranchName": "Vancouver"
+  },
+  {
+    "Id": 3,
+    "ConnectionString": "Server=(localdb)\\mssqllocaldb;Database=SaaS-Google-Burnaby;Trusted_Connection=True;MultipleActiveResultSets=true",
+    "OrganizationName": "Google",
+    "BranchName": "Burnaby"
+  }
+]
