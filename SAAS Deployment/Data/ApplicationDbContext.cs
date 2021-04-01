@@ -4,6 +4,7 @@ using SAAS_Deployment.Tenants;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using SAAS_Deployment.Models;
 
 
 namespace SAAS_Deployment.Data
@@ -25,5 +26,8 @@ namespace SAAS_Deployment.Data
         public string OrganizationName { get { return _tenant.OrganizationName; } }
         public string BranchName { get { return _tenant.BranchName; } }
 
+        public DbSet<SAAS_Deployment.Models.Employee> Employee { get; set; }
+        public DbSet<SAAS_Deployment.Models.FullAddress> FullAddress { get; set; }
+        public DbSet<SAAS_Deployment.Models.Client> Client { get; set; }
     }
 }
