@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using SAAS_Deployment.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace SAAS_Deployment.Data {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser> {
@@ -13,5 +14,6 @@ namespace SAAS_Deployment.Data {
         public DbSet<SAAS_Deployment.Models.Employee> Employee { get; set; }
         public DbSet<SAAS_Deployment.Models.FullAddress> FullAddress { get; set; }
         public DbSet<SAAS_Deployment.Models.Client> Client { get; set; }
+
     }
 }
