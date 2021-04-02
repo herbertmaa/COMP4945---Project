@@ -6,7 +6,7 @@ using System.Text;
 using SAAS_Deployment.Models;
 
 namespace SAAS_Deployment.Data {
-    public class ApplicationDbContext : IdentityDbContext {
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser> {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) {
         }
