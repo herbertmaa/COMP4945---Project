@@ -14,7 +14,8 @@ namespace SAAS_Deployment.Models
         [Required]
         public string Name { get; set; }
 
-        public FullAddress fullAddress { get; set; }
+        [Required]
+        public string Address { get; set; }
 
         [Required]
         public DateTime DateJoined { get; set; }
