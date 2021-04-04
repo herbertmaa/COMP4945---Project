@@ -61,5 +61,7 @@ namespace SAAS_Deployment.Data
             });
         }
 
+        public DbSet<SAAS_Deployment.Models.Branch> Branch { get; set; }
+
     }
 }
