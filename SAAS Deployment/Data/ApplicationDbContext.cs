@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,5 +14,7 @@ namespace SAAS_Deployment.Data {
         public DbSet<SAAS_Deployment.Models.Employee> Employee { get; set; }
         public DbSet<SAAS_Deployment.Models.FullAddress> FullAddress { get; set; }
         public DbSet<SAAS_Deployment.Models.Client> Client { get; set; }
+
+        //public DbSet<IdentityRole> Roles { get; set; }
     }
 }

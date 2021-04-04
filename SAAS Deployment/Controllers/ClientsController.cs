@@ -34,7 +34,7 @@ namespace SAAS_Deployment.Controllers
             }
 
             var client = await _context.Client
-                .FirstOrDefaultAsync(m => m.ID == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (client == null)
             {
                 return NotFound();
@@ -54,7 +54,7 @@ namespace SAAS_Deployment.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,FirstName,LastName,Address,Email,Branch")] Client client)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Email,Branch")] Client client)
         {
             if (ModelState.IsValid)
             {
@@ -86,9 +86,9 @@ namespace SAAS_Deployment.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,FirstName,LastName,Address,Email,Branch")] Client client)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Email,Branch")] Client client)
         {
-            if (id != client.ID)
+            if (id != client.Id)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace SAAS_Deployment.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ClientExists(client.ID))
+                    if (!ClientExists(client.Id))
                     {
                         return NotFound();
                     }
@@ -125,7 +125,7 @@ namespace SAAS_Deployment.Controllers
             }
 
             var client = await _context.Client
-                .FirstOrDefaultAsync(m => m.ID == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (client == null)
             {
                 return NotFound();
@@ -147,7 +147,7 @@ namespace SAAS_Deployment.Controllers
 
         private bool ClientExists(int id)
         {
-            return _context.Client.Any(e => e.ID == id);
+            return _context.Client.Any(e => e.Id == id);
         }
     }
 }
