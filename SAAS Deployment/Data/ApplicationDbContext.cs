@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace SAAS_Deployment.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -36,7 +36,7 @@ namespace SAAS_Deployment.Data
             });
 
             //create user
-            var appUser = new IdentityUser
+            var appUser = new ApplicationUser
             {
                 Id = ADMIN_ID,
                 UserName = "admin@gmail.com",
@@ -47,11 +47,11 @@ namespace SAAS_Deployment.Data
             };
 
             //set user password
-            PasswordHasher<IdentityUser> ph = new PasswordHasher<IdentityUser>();
+            PasswordHasher<ApplicationUser> ph = new PasswordHasher<ApplicationUser>();
             appUser.PasswordHash = ph.HashPassword(appUser, "password");
 
             //seed user
-            builder.Entity<IdentityUser>().HasData(appUser);
+            builder.Entity<ApplicationUser>().HasData(appUser);
 
             //set user role to admin
             builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
