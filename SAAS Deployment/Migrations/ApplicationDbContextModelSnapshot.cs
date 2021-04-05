@@ -48,8 +48,8 @@ namespace SAAS_Deployment.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "96bc604f-6d90-4a01-b653-e78f7ab3a305",
-                            ConcurrencyStamp = "96bc604f-6d90-4a01-b653-e78f7ab3a305",
+                            Id = "b7ab1060-bc94-4e08-bb89-33f73ab7dc11",
+                            ConcurrencyStamp = "b7ab1060-bc94-4e08-bb89-33f73ab7dc11",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -146,17 +146,17 @@ namespace SAAS_Deployment.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "f8043058-f45c-4e9a-98b8-d61fb8dc4126",
+                            Id = "e3dda540-bcef-4365-bb16-bd125826be2f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ecfa15f7-48d6-44c5-a480-2330b67f13ac",
+                            ConcurrencyStamp = "a058f37f-e934-4fa1-ad21-4042d224ac27",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDJRAFYCTzRzFUhdQtc6tN2u9UuaqibRAbEX0I42yZJKtFKMRsIkM1539/LTBrQyxQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDRe3wYMO/L4j1PqVlgXH1+eAZPkQOzzRI8orPSGmVtgqAr+dfMjdGEEO1w6BWJk7g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e8c1af06-d657-4705-bcc7-a6f8f0c75ba6",
+                            SecurityStamp = "ede0a414-8112-41e7-b17e-0fd0455c6fe4",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         });
@@ -225,8 +225,8 @@ namespace SAAS_Deployment.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "f8043058-f45c-4e9a-98b8-d61fb8dc4126",
-                            RoleId = "96bc604f-6d90-4a01-b653-e78f7ab3a305"
+                            UserId = "e3dda540-bcef-4365-bb16-bd125826be2f",
+                            RoleId = "b7ab1060-bc94-4e08-bb89-33f73ab7dc11"
                         });
                 });
 
