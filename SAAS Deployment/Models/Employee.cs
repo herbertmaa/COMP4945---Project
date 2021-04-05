@@ -18,5 +18,8 @@ namespace SAAS_Deployment.Models
 
         public virtual IdentityRole Roles { get; set; }
 
+        [NotMapped]
+        public string SelectedRolesID { get; set; }
+
     }
 }

@@ -24,7 +24,7 @@ namespace SAAS_Deployment.Controllers
         //[Authorize(Roles = "Admin, Manager")]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Employee.ToListAsync());
+            return View(await _context.Employee.Include(e => e.Roles).ToListAsync());
         }
 
         // GET: Employees/Details/5
@@ -60,10 +60,11 @@ namespace SAAS_Deployment.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DateJoined,EmerContact,Id,FirstName,LastName,Email,Branch,Roles")] Employee employee)
+        public async Task<IActionResult> Create([Bind("DateJoined,EmerContact,Id,FirstName,LastName,Email,Branch,SelectedRolesID")] Employee employee)
         {
             if (ModelState.IsValid)
             {
+                employee.Roles = _context.Roles.Find(employee.SelectedRolesID);
                 _context.Add(employee);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
