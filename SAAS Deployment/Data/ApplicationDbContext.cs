@@ -18,6 +18,7 @@ namespace SAAS_Deployment.Data
         public DbSet<Employee> Employee { get; set; }
         public DbSet<FullAddress> FullAddress { get; set; }
         public DbSet<Client> Client { get; set; }
+        public DbSet<Branch> Branch { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -44,6 +45,7 @@ namespace SAAS_Deployment.Data
                 Email = "admin@gmail.com",
                 NormalizedEmail = "ADMIN@GMAIL.COM",
                 EmailConfirmed = true,
+                BranchId = 1
             };
 
             //set user password
@@ -52,6 +54,13 @@ namespace SAAS_Deployment.Data
 
             //seed user
             builder.Entity<ApplicationUser>().HasData(appUser);
+            builder.Entity<Branch>().HasData(new Branch
+            {
+                ID = 1,
+                Name = "Headquarter",
+                DbConnectionString = "aspnet-SAAS_Deployment-Headquarter"
+            });
+
 
             //set user role to admin
             builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
@@ -59,9 +68,7 @@ namespace SAAS_Deployment.Data
                 RoleId = ROLE_ID,
                 UserId = ADMIN_ID
             });
+
         }
-
-        public DbSet<SAAS_Deployment.Models.Branch> Branch { get; set; }
-
     }
 }

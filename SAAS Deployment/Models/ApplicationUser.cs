@@ -8,6 +8,6 @@ namespace SAAS_Deployment.Models
 {
     public class ApplicationUser: IdentityUser
     {
-        public Branch Branch { get; set; }
+        public int BranchId { get; set; }
     }
 }

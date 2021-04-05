@@ -10,8 +10,8 @@ using SAAS_Deployment.Data;
 namespace SAAS_Deployment.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210404215855_branch")]
-    partial class branch
+    [Migration("20210405034727_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,8 +50,8 @@ namespace SAAS_Deployment.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "bdc46866-69b5-494d-843b-098823b4a33b",
-                            ConcurrencyStamp = "bdc46866-69b5-494d-843b-098823b4a33b",
+                            Id = "7a0126b9-6462-46b4-a784-8d7eb96decfd",
+                            ConcurrencyStamp = "7a0126b9-6462-46b4-a784-8d7eb96decfd",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -144,8 +144,8 @@ namespace SAAS_Deployment.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "c6be50c5-5496-4f2f-bd07-8c978bc14896",
-                            RoleId = "bdc46866-69b5-494d-843b-098823b4a33b"
+                            UserId = "6918d7d6-c17a-40d6-8fa2-7e2e3094b34e",
+                            RoleId = "7a0126b9-6462-46b4-a784-8d7eb96decfd"
                         });
                 });
 
@@ -176,7 +176,7 @@ namespace SAAS_Deployment.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<int?>("BranchID")
+                    b.Property<int>("BranchId")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -225,8 +225,6 @@ namespace SAAS_Deployment.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BranchID");
-
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
 
@@ -240,17 +238,18 @@ namespace SAAS_Deployment.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c6be50c5-5496-4f2f-bd07-8c978bc14896",
+                            Id = "6918d7d6-c17a-40d6-8fa2-7e2e3094b34e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5335ca56-9f59-4606-b2a2-edda65509732",
+                            BranchId = 1,
+                            ConcurrencyStamp = "03634558-2b4f-46e3-ac2f-748a597c8ed6",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHg68MOGOZ5An9I75lHAJkTHcCdbPFFY99nLwYea1dY8ypEy8hh1bMhxkerGommDqg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJOpSrI7YV2fZturBpldfFxtgpiXEeYUQQrmuY9cb6oC7oukGg7IfeRseh5OvgPo0g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3e036d62-00e7-4847-8bd0-34dc5ae9a61d",
+                            SecurityStamp = "9e67ee67-d6d0-495f-ad8a-ec4028050a5c",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         });
@@ -274,6 +273,14 @@ namespace SAAS_Deployment.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Branch");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            DbConnectionString = "aspnet-SAAS_Deployment-Headquarter",
+                            Name = "Headquarter"
+                        });
                 });
 
             modelBuilder.Entity("SAAS_Deployment.Models.Client", b =>
@@ -399,13 +406,6 @@ namespace SAAS_Deployment.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("SAAS_Deployment.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("SAAS_Deployment.Models.Branch", "Branch")
-                        .WithMany()
-                        .HasForeignKey("BranchID");
                 });
 #pragma warning restore 612, 618
         }
