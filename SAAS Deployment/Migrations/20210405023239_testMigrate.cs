@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SAAS_Deployment.Migrations
 {
-    public partial class fdsfad : Migration
+    public partial class testMigrate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -179,8 +179,9 @@ namespace SAAS_Deployment.Migrations
                     LastName = table.Column<string>(nullable: false),
                     Email = table.Column<string>(nullable: false),
                     Branch = table.Column<string>(nullable: true),
-                    FullAddressId = table.Column<int>(nullable: false),
+                    Address = table.Column<string>(nullable: true),
                     Discriminator = table.Column<string>(nullable: false),
+                    FullAddressId = table.Column<int>(nullable: true),
                     DateJoined = table.Column<DateTime>(nullable: true),
                     EmerContact = table.Column<string>(nullable: true),
                     RolesId = table.Column<string>(nullable: true)
@@ -199,8 +200,23 @@ namespace SAAS_Deployment.Migrations
                         column: x => x.FullAddressId,
                         principalTable: "FullAddress",
                         principalColumn: "FullAddressId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "b124389f-5625-46bc-b13d-6cd34a75cff2", "b124389f-5625-46bc-b13d-6cd34a75cff2", "Admin", "ADMIN" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "ef0d45d9-d371-4551-b79a-70eecf77e263", 0, "57669309-ee9b-4c3e-ac4b-ef5022cdf4af", "admin@gmail.com", true, false, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAEEIaYfidsnEVy+Of+oXJmx/9ZKj68TC8zfb469Wj23L+ZAjiUXZSq2d4Us4nqjTPPA==", null, false, "ad38d36b-316f-4973-9a69-be8cb0064faf", false, "admin@gmail.com" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "UserId", "RoleId" },
+                values: new object[] { "ef0d45d9-d371-4551-b79a-70eecf77e263", "b124389f-5625-46bc-b13d-6cd34a75cff2" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

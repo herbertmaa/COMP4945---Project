@@ -10,8 +10,8 @@ using SAAS_Deployment.Data;
 namespace SAAS_Deployment.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210405012556_wefa")]
-    partial class wefa
+    [Migration("20210405023239_testMigrate")]
+    partial class testMigrate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,6 +46,15 @@ namespace SAAS_Deployment.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "b124389f-5625-46bc-b13d-6cd34a75cff2",
+                            ConcurrencyStamp = "b124389f-5625-46bc-b13d-6cd34a75cff2",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -135,6 +144,24 @@ namespace SAAS_Deployment.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "ef0d45d9-d371-4551-b79a-70eecf77e263",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "57669309-ee9b-4c3e-ac4b-ef5022cdf4af",
+                            Email = "admin@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@GMAIL.COM",
+                            NormalizedUserName = "ADMIN@GMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEIaYfidsnEVy+Of+oXJmx/9ZKj68TC8zfb469Wj23L+ZAjiUXZSq2d4Us4nqjTPPA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "ad38d36b-316f-4973-9a69-be8cb0064faf",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@gmail.com"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -196,6 +223,13 @@ namespace SAAS_Deployment.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "ef0d45d9-d371-4551-b79a-70eecf77e263",
+                            RoleId = "b124389f-5625-46bc-b13d-6cd34a75cff2"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
