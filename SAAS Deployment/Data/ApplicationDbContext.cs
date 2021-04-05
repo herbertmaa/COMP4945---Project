@@ -5,16 +5,63 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using SAAS_Deployment.Models;
+using Microsoft.AspNetCore.Identity;
 
-namespace SAAS_Deployment.Data {
-    public class ApplicationDbContext : IdentityDbContext {
+namespace SAAS_Deployment.Data
+{
+    public class ApplicationDbContext : IdentityDbContext
+    {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options) {
+            : base(options)
+        {
         }
-        public DbSet<SAAS_Deployment.Models.Employee> Employee { get; set; }
-        public DbSet<SAAS_Deployment.Models.FullAddress> FullAddress { get; set; }
-        public DbSet<SAAS_Deployment.Models.Client> Client { get; set; }
 
-        //public DbSet<IdentityRole> Roles { get; set; }
+
+        public DbSet<Employee> Employee { get; set; }
+        public DbSet<FullAddress> FullAddress { get; set; }
+        public DbSet<Client> Client { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            string ADMIN_ID = Guid.NewGuid().ToString();
+            string ROLE_ID = Guid.NewGuid().ToString();
+
+            //seed admin role
+            builder.Entity<IdentityRole>().HasData(new IdentityRole
+            {
+                Id = ROLE_ID,
+                Name = "Admin",
+                NormalizedName = "ADMIN",
+                ConcurrencyStamp = ROLE_ID
+            });
+
+            //create user
+            var appUser = new IdentityUser
+            {
+                Id = ADMIN_ID,
+                UserName = "admin@gmail.com",
+                NormalizedUserName = "ADMIN@GMAIL.COM",
+                Email = "admin@gmail.com",
+                NormalizedEmail = "ADMIN@GMAIL.COM",
+                EmailConfirmed = true,
+            };
+
+            //set user password
+            PasswordHasher<IdentityUser> ph = new PasswordHasher<IdentityUser>();
+            appUser.PasswordHash = ph.HashPassword(appUser, "password");
+
+            //seed user
+            builder.Entity<IdentityUser>().HasData(appUser);
+
+            //set user role to admin
+            builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            {
+                RoleId = ROLE_ID,
+                UserId = ADMIN_ID
+            });
+        }
+
     }
 }
