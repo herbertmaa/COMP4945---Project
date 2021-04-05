@@ -10,8 +10,8 @@ using SAAS_Deployment.Data;
 namespace SAAS_Deployment.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210404214840_hello")]
-    partial class hello
+    [Migration("20210405014817_pls")]
+    partial class pls
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,9 +30,6 @@ namespace SAAS_Deployment.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("EmployeeId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
@@ -42,8 +39,6 @@ namespace SAAS_Deployment.Migrations
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EmployeeId");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
@@ -225,7 +220,9 @@ namespace SAAS_Deployment.Migrations
             modelBuilder.Entity("SAAS_Deployment.Models.FullAddress", b =>
                 {
                     b.Property<int>("FullAddressId")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
@@ -254,6 +251,9 @@ namespace SAAS_Deployment.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Branch")
                         .HasColumnType("nvarchar(max)");
 
@@ -269,15 +269,16 @@ namespace SAAS_Deployment.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("FullAddressId")
+                        .HasColumnType("int");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("FullAddressId");
 
                     b.ToTable("Person");
 
@@ -302,17 +303,12 @@ namespace SAAS_Deployment.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Role")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("RolesId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasIndex("RolesId");
 
                     b.HasDiscriminator().HasValue("Employee");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.HasOne("SAAS_Deployment.Models.Employee", null)
-                        .WithMany("Roles")
-                        .HasForeignKey("EmployeeId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -366,13 +362,18 @@ namespace SAAS_Deployment.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SAAS_Deployment.Models.FullAddress", b =>
+            modelBuilder.Entity("SAAS_Deployment.Models.Person", b =>
                 {
-                    b.HasOne("SAAS_Deployment.Models.Person", "Person")
-                        .WithOne("FullAddress")
-                        .HasForeignKey("SAAS_Deployment.Models.FullAddress", "FullAddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("SAAS_Deployment.Models.FullAddress", null)
+                        .WithMany("Persons")
+                        .HasForeignKey("FullAddressId");
+                });
+
+            modelBuilder.Entity("SAAS_Deployment.Models.Employee", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", "Roles")
+                        .WithMany()
+                        .HasForeignKey("RolesId");
                 });
 #pragma warning restore 612, 618
         }

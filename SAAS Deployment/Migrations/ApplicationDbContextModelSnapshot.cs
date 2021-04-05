@@ -218,7 +218,9 @@ namespace SAAS_Deployment.Migrations
             modelBuilder.Entity("SAAS_Deployment.Models.FullAddress", b =>
                 {
                     b.Property<int>("FullAddressId")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
@@ -247,6 +249,9 @@ namespace SAAS_Deployment.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Branch")
                         .HasColumnType("nvarchar(max)");
 
@@ -262,11 +267,16 @@ namespace SAAS_Deployment.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("FullAddressId")
+                        .HasColumnType("int");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FullAddressId");
 
                     b.ToTable("Person");
 
@@ -350,13 +360,11 @@ namespace SAAS_Deployment.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SAAS_Deployment.Models.FullAddress", b =>
+            modelBuilder.Entity("SAAS_Deployment.Models.Person", b =>
                 {
-                    b.HasOne("SAAS_Deployment.Models.Person", "Person")
-                        .WithOne("FullAddress")
-                        .HasForeignKey("SAAS_Deployment.Models.FullAddress", "FullAddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("SAAS_Deployment.Models.FullAddress", null)
+                        .WithMany("Persons")
+                        .HasForeignKey("FullAddressId");
                 });
 
             modelBuilder.Entity("SAAS_Deployment.Models.Employee", b =>

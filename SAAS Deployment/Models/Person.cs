@@ -28,6 +28,11 @@ namespace SAAS_Deployment.Models
 
         public string Branch { get; set; }
 
-        public virtual FullAddress FullAddress { get; set; }
+        public string Address { get; set; }
+
+        //[ForeignKey("FullAddress")]
+        //public int FullAddressId { get; set; }
+
+        //public FullAddress FullAddress { get; set; }
     }
 }

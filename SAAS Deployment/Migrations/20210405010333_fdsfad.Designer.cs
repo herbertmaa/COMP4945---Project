@@ -10,8 +10,8 @@ using SAAS_Deployment.Data;
 namespace SAAS_Deployment.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210404221121_oops")]
-    partial class oops
+    [Migration("20210405010333_fdsfad")]
+    partial class fdsfad
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -220,7 +220,9 @@ namespace SAAS_Deployment.Migrations
             modelBuilder.Entity("SAAS_Deployment.Models.FullAddress", b =>
                 {
                     b.Property<int>("FullAddressId")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
@@ -264,15 +266,16 @@ namespace SAAS_Deployment.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("FullAddressId")
+                        .HasColumnType("int");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("FullAddressId");
 
                     b.ToTable("Person");
 
@@ -295,9 +298,6 @@ namespace SAAS_Deployment.Migrations
 
                     b.Property<string>("EmerContact")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RoleId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RolesId")
@@ -359,11 +359,11 @@ namespace SAAS_Deployment.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SAAS_Deployment.Models.FullAddress", b =>
+            modelBuilder.Entity("SAAS_Deployment.Models.Person", b =>
                 {
-                    b.HasOne("SAAS_Deployment.Models.Person", "Person")
-                        .WithOne("FullAddress")
-                        .HasForeignKey("SAAS_Deployment.Models.FullAddress", "FullAddressId")
+                    b.HasOne("SAAS_Deployment.Models.FullAddress", "FullAddress")
+                        .WithMany("Persons")
+                        .HasForeignKey("FullAddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

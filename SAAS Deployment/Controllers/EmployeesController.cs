@@ -21,9 +21,10 @@ namespace SAAS_Deployment.Controllers
         }
 
         // GET: Employees
-        //[Authorize(Roles = "Admin, Manager")]
+        [Authorize(Roles = "Admin, Manager")]
         public async Task<IActionResult> Index()
         {
+            //return View(await _context.Employee.ToListAsync());
             return View(await _context.Employee.Include(e => e.Roles).ToListAsync());
         }
 
@@ -47,7 +48,7 @@ namespace SAAS_Deployment.Controllers
         }
 
         // GET: Employees/Create
-        //[Authorize(Roles = "Admin, Manager")]
+        [Authorize(Roles = "Admin, Manager")]
         public IActionResult Create()
         {
             var roles = _context.Roles.ToList();
@@ -60,7 +61,7 @@ namespace SAAS_Deployment.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DateJoined,EmerContact,Id,FirstName,LastName,Email,Branch,SelectedRolesID")] Employee employee)
+        public async Task<IActionResult> Create([Bind("DateJoined,EmerContact,Id,FirstName,LastName,Email,Branch,Address,SelectedRolesID")] Employee employee)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +97,7 @@ namespace SAAS_Deployment.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DateJoined,EmerContact,Id,FirstName,LastName,Email,Branch")] Employee employee)
+        public async Task<IActionResult> Edit(int id, [Bind("DateJoined,EmerContact,Id,FirstName,LastName,Email,Branch,Address,SelectedRolesID")] Employee employee)
         {
             if (id != employee.Id)
             {
@@ -107,6 +108,7 @@ namespace SAAS_Deployment.Controllers
             {
                 try
                 {
+                    employee.Roles = _context.Roles.Find(employee.SelectedRolesID);
                     _context.Update(employee);
                     await _context.SaveChangesAsync();
                 }

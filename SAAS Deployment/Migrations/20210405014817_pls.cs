@@ -2,7 +2,7 @@
 
 namespace SAAS_Deployment.Migrations
 {
-    public partial class hello : Migration
+    public partial class pls : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

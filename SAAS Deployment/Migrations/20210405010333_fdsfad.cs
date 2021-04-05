@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SAAS_Deployment.Migrations
 {
-    public partial class person : Migration
+    public partial class fdsfad : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,40 +47,20 @@ namespace SAAS_Deployment.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Client",
+                name: "FullAddress",
                 columns: table => new
                 {
-                    ID = table.Column<int>(nullable: false)
+                    FullAddressId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(nullable: false),
-                    LastName = table.Column<string>(nullable: false),
-                    Address = table.Column<string>(nullable: false),
-                    Email = table.Column<string>(nullable: false),
-                    Branch = table.Column<string>(nullable: true)
+                    Street = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    PostalCode = table.Column<string>(nullable: true),
+                    Province = table.Column<string>(nullable: true),
+                    Country = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Client", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Person",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(nullable: false),
-                    LastName = table.Column<string>(nullable: false),
-                    Password = table.Column<string>(nullable: false),
-                    Email = table.Column<string>(nullable: false),
-                    Branch = table.Column<string>(nullable: true),
-                    Discriminator = table.Column<string>(nullable: false),
-                    DateJoined = table.Column<DateTime>(nullable: true),
-                    EmerContact = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Person", x => x.Id);
+                    table.PrimaryKey("PK_FullAddress", x => x.FullAddressId);
                 });
 
             migrationBuilder.CreateTable(
@@ -190,24 +170,35 @@ namespace SAAS_Deployment.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FullAddress",
+                name: "Person",
                 columns: table => new
                 {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(nullable: false),
+                    LastName = table.Column<string>(nullable: false),
+                    Email = table.Column<string>(nullable: false),
+                    Branch = table.Column<string>(nullable: true),
                     FullAddressId = table.Column<int>(nullable: false),
-                    Street = table.Column<string>(nullable: true),
-                    City = table.Column<string>(nullable: true),
-                    PostalCode = table.Column<string>(nullable: true),
-                    Province = table.Column<string>(nullable: true),
-                    Country = table.Column<string>(nullable: true)
+                    Discriminator = table.Column<string>(nullable: false),
+                    DateJoined = table.Column<DateTime>(nullable: true),
+                    EmerContact = table.Column<string>(nullable: true),
+                    RolesId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FullAddress", x => x.FullAddressId);
+                    table.PrimaryKey("PK_Person", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FullAddress_Person_FullAddressId",
-                        column: x => x.FullAddressId,
-                        principalTable: "Person",
+                        name: "FK_Person_AspNetRoles_RolesId",
+                        column: x => x.RolesId,
+                        principalTable: "AspNetRoles",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Person_FullAddress_FullAddressId",
+                        column: x => x.FullAddressId,
+                        principalTable: "FullAddress",
+                        principalColumn: "FullAddressId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -249,6 +240,16 @@ namespace SAAS_Deployment.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Person_RolesId",
+                table: "Person",
+                column: "RolesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Person_FullAddressId",
+                table: "Person",
+                column: "FullAddressId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -269,19 +270,16 @@ namespace SAAS_Deployment.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Client");
-
-            migrationBuilder.DropTable(
-                name: "FullAddress");
-
-            migrationBuilder.DropTable(
-                name: "AspNetRoles");
+                name: "Person");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Person");
+                name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "FullAddress");
         }
     }
 }

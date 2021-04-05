@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -20,12 +21,14 @@ namespace SAAS_Deployment.Controllers
         }
 
         // GET: Clients
+        [Authorize(Roles = "Admin, Manager, Employee")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Client.ToListAsync());
         }
 
         // GET: Clients/Details/5
+        [Authorize(Roles = "Admin, Manager, Employee")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,6 +47,7 @@ namespace SAAS_Deployment.Controllers
         }
 
         // GET: Clients/Create
+        [Authorize(Roles = "Admin, Manager, Employee")]
         public IActionResult Create()
         {
             return View();
@@ -54,7 +58,7 @@ namespace SAAS_Deployment.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Email,Branch")] Client client)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Email,Branch,Address")] Client client)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +69,8 @@ namespace SAAS_Deployment.Controllers
             return View(client);
         }
 
-        // GET: Clients/Edit/5
+        // GET: Clients/Edit/
+        [Authorize(Roles = "Admin, Manager, Employee")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,7 +91,7 @@ namespace SAAS_Deployment.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Email,Branch")] Client client)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Email,Branch,Address")] Client client)
         {
             if (id != client.Id)
             {
@@ -117,6 +122,7 @@ namespace SAAS_Deployment.Controllers
         }
 
         // GET: Clients/Delete/5
+        [Authorize(Roles = "Admin, Manager, Employee")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

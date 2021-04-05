@@ -22,6 +22,6 @@ namespace SAAS_Deployment.Models
 
         public string Country { get; set; }
 
-        public virtual Person Person { get; set; }
+        public ICollection<Person> Persons { get; set; }
     }
 }
