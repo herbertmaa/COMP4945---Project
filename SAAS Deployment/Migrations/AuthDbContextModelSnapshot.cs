@@ -48,8 +48,8 @@ namespace SAAS_Deployment.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ef49a9c6-6839-4ff0-a695-1e5c811592dc",
-                            ConcurrencyStamp = "ef49a9c6-6839-4ff0-a695-1e5c811592dc",
+                            Id = "77265d8f-a63f-4f0d-a392-3122b5bf7a67",
+                            ConcurrencyStamp = "77265d8f-a63f-4f0d-a392-3122b5bf7a67",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -142,8 +142,8 @@ namespace SAAS_Deployment.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "1453e6cc-95ad-4fc6-ba13-08cd4e714978",
-                            RoleId = "ef49a9c6-6839-4ff0-a695-1e5c811592dc"
+                            UserId = "9c2c2130-4f4d-49ad-a21c-13b008fb2ca6",
+                            RoleId = "77265d8f-a63f-4f0d-a392-3122b5bf7a67"
                         });
                 });
 
@@ -236,18 +236,18 @@ namespace SAAS_Deployment.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1453e6cc-95ad-4fc6-ba13-08cd4e714978",
+                            Id = "9c2c2130-4f4d-49ad-a21c-13b008fb2ca6",
                             AccessFailedCount = 0,
                             BranchId = 1,
-                            ConcurrencyStamp = "671a8dbb-3590-4b69-8e5d-5d93dbecca15",
+                            ConcurrencyStamp = "8f756734-c68b-4375-977c-deba07deb2a8",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAELOo/AhaE7oGdetRxfQyCTMihoE/K/1AX/yHmMT53XkGUhJ8Bp6i5TgZZyIGB6YqlA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJupvlYzUbgzdar59fnylkxpvrPxpby1wTCkFb8k+IDhCl33pp2iT7qWdGY502K8Gw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8ee9ec71-4e84-4f30-ab95-1aedca7a8824",
+                            SecurityStamp = "b139262e-b6cb-4618-9912-348c530189c8",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         });
