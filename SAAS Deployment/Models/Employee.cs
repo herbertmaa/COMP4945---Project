@@ -1,27 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace SAAS_Deployment.Models
 {
-    public class Employee
+    public class Employee : Person
     {
-        [Key]
-        public int ID { get; set; }
-
-        [Required]
-        public string Name { get; set; }
-
-        [Required]
-        public string Address { get; set; }
-
         [Required]
         public DateTime DateJoined { get; set; }
         
         [Required]
         public string EmerContact { get; set; }
+
+        public virtual IdentityRole Roles { get; set; }
+
+        [NotMapped]
+        public string SelectedRolesID { get; set; }
 
     }
 }

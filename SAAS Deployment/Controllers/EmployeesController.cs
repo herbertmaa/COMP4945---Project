@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -20,12 +21,15 @@ namespace SAAS_Deployment.Controllers
         }
 
         // GET: Employees
+        [Authorize(Roles = "Admin, Manager")]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Employee.ToListAsync());
+            //return View(await _context.Employee.ToListAsync());
+            return View(await _context.Employee.Include(e => e.Roles).ToListAsync());
         }
 
         // GET: Employees/Details/5
+        [Authorize(Roles = "Admin, Manager")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,7 +38,7 @@ namespace SAAS_Deployment.Controllers
             }
 
             var employee = await _context.Employee
-                .FirstOrDefaultAsync(m => m.ID == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (employee == null)
             {
                 return NotFound();
@@ -44,8 +48,11 @@ namespace SAAS_Deployment.Controllers
         }
 
         // GET: Employees/Create
+        [Authorize(Roles = "Admin, Manager")]
         public IActionResult Create()
         {
+            var roles = _context.Roles.ToList();
+            ViewBag.Roles = new SelectList(roles, "Id", "Name");
             return View();
         }
 
@@ -54,10 +61,11 @@ namespace SAAS_Deployment.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,Address,DateJoined,EmerContact")] Employee employee)
+        public async Task<IActionResult> Create([Bind("DateJoined,EmerContact,Id,FirstName,LastName,Email,Branch,Address,SelectedRolesID")] Employee employee)
         {
             if (ModelState.IsValid)
             {
+                employee.Roles = _context.Roles.Find(employee.SelectedRolesID);
                 _context.Add(employee);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -66,6 +74,7 @@ namespace SAAS_Deployment.Controllers
         }
 
         // GET: Employees/Edit/5
+        [Authorize(Roles = "Admin, Manager")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -78,6 +87,8 @@ namespace SAAS_Deployment.Controllers
             {
                 return NotFound();
             }
+            var roles = _context.Roles.ToList();
+            ViewBag.Roles = new SelectList(roles, "Id", "Name");
             return View(employee);
         }
 
@@ -86,9 +97,9 @@ namespace SAAS_Deployment.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Address,DateJoined,EmerContact")] Employee employee)
+        public async Task<IActionResult> Edit(int id, [Bind("DateJoined,EmerContact,Id,FirstName,LastName,Email,Branch,Address,SelectedRolesID")] Employee employee)
         {
-            if (id != employee.ID)
+            if (id != employee.Id)
             {
                 return NotFound();
             }
@@ -97,12 +108,13 @@ namespace SAAS_Deployment.Controllers
             {
                 try
                 {
+                    employee.Roles = _context.Roles.Find(employee.SelectedRolesID);
                     _context.Update(employee);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EmployeeExists(employee.ID))
+                    if (!EmployeeExists(employee.Id))
                     {
                         return NotFound();
                     }
@@ -117,6 +129,7 @@ namespace SAAS_Deployment.Controllers
         }
 
         // GET: Employees/Delete/5
+        [Authorize(Roles = "Admin, Manager")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -125,7 +138,7 @@ namespace SAAS_Deployment.Controllers
             }
 
             var employee = await _context.Employee
-                .FirstOrDefaultAsync(m => m.ID == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (employee == null)
             {
                 return NotFound();
@@ -147,7 +160,7 @@ namespace SAAS_Deployment.Controllers
 
         private bool EmployeeExists(int id)
         {
-            return _context.Employee.Any(e => e.ID == id);
+            return _context.Employee.Any(e => e.Id == id);
         }
     }
 }

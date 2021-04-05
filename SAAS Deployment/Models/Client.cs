@@ -7,23 +7,9 @@ using System.Threading.Tasks;
 
 namespace SAAS_Deployment.Models
 {
-    public class Client
+    public class Client : Person
     {
-        [Key, Column(Order = 0)]
-        public int ID { get; set; }
-
-        [Required]
-        public string FirstName { get; set; }
-
-        [Required]
-        public string LastName { get; set; }
-
-        [Required]
-        public string Address { get; set; }
-
-        [Required]
-        public string Email { get; set; }
-
-        public string Branch { get; set; }
+        // Need to add one column that contains a JSON string for additional client info
+        // ex: "Allergies": "Nut"
     }
 }
