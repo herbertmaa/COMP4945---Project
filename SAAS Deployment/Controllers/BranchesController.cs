@@ -11,9 +11,9 @@ namespace SAAS_Deployment.Models
 {
     public class BranchesController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly AuthDbContext _context;
 
-        public BranchesController(ApplicationDbContext context)
+        public BranchesController(AuthDbContext context)
         {
             _context = context;
         }

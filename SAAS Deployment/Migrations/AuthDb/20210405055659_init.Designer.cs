@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SAAS_Deployment.Data;
 
-namespace SAAS_Deployment.Migrations
+namespace SAAS_Deployment.Migrations.AuthDb
 {
-    [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210405034727_init")]
+    [DbContext(typeof(AuthDbContext))]
+    [Migration("20210405055659_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,8 +50,8 @@ namespace SAAS_Deployment.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7a0126b9-6462-46b4-a784-8d7eb96decfd",
-                            ConcurrencyStamp = "7a0126b9-6462-46b4-a784-8d7eb96decfd",
+                            Id = "0da89324-d99d-4b3e-a426-be9e78891a6a",
+                            ConcurrencyStamp = "0da89324-d99d-4b3e-a426-be9e78891a6a",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -144,8 +144,8 @@ namespace SAAS_Deployment.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "6918d7d6-c17a-40d6-8fa2-7e2e3094b34e",
-                            RoleId = "7a0126b9-6462-46b4-a784-8d7eb96decfd"
+                            UserId = "93b34979-8e9a-45a2-8002-c00d38337541",
+                            RoleId = "0da89324-d99d-4b3e-a426-be9e78891a6a"
                         });
                 });
 
@@ -238,18 +238,18 @@ namespace SAAS_Deployment.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6918d7d6-c17a-40d6-8fa2-7e2e3094b34e",
+                            Id = "93b34979-8e9a-45a2-8002-c00d38337541",
                             AccessFailedCount = 0,
                             BranchId = 1,
-                            ConcurrencyStamp = "03634558-2b4f-46e3-ac2f-748a597c8ed6",
+                            ConcurrencyStamp = "05a91b8b-f8e6-422b-9ae9-e5e151170339",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJOpSrI7YV2fZturBpldfFxtgpiXEeYUQQrmuY9cb6oC7oukGg7IfeRseh5OvgPo0g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEO1keV3hME60sEoQSxEagDldTjWHrWKfsCMJNNjBKh3Snf9OvD9SLNJIbb+EFfJKUg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9e67ee67-d6d0-495f-ad8a-ec4028050a5c",
+                            SecurityStamp = "85310def-4a46-4d7f-8257-e1765d317788",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         });
@@ -281,80 +281,6 @@ namespace SAAS_Deployment.Migrations
                             DbConnectionString = "aspnet-SAAS_Deployment-Headquarter",
                             Name = "Headquarter"
                         });
-                });
-
-            modelBuilder.Entity("SAAS_Deployment.Models.Client", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Branch")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Client");
-                });
-
-            modelBuilder.Entity("SAAS_Deployment.Models.Employee", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateJoined")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("EmerContact")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Employee");
-                });
-
-            modelBuilder.Entity("SAAS_Deployment.Models.FullAddress", b =>
-                {
-                    b.Property<string>("Street")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Province")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Street");
-
-                    b.ToTable("FullAddress");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

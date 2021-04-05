@@ -5,70 +5,26 @@ using System.Collections.Generic;
 using System.Text;
 using SAAS_Deployment.Models;
 using Microsoft.AspNetCore.Identity;
+using SAAS_Deployment.BranchProviders;
 
 namespace SAAS_Deployment.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        private readonly Branch _branch;
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IBranchProvider branchProvider)
             : base(options)
         {
+            _branch = branchProvider.GetBranch();
         }
-
         public DbSet<Employee> Employee { get; set; }
         public DbSet<FullAddress> FullAddress { get; set; }
         public DbSet<Client> Client { get; set; }
-        public DbSet<Branch> Branch { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            base.OnModelCreating(builder);
-
-            string ADMIN_ID = Guid.NewGuid().ToString();
-            string ROLE_ID = Guid.NewGuid().ToString();
-
-            //seed admin role
-            builder.Entity<IdentityRole>().HasData(new IdentityRole
-            {
-                Id = ROLE_ID,
-                Name = "Admin",
-                NormalizedName = "ADMIN",
-                ConcurrencyStamp = ROLE_ID
-            });
-
-            //create user
-            var appUser = new ApplicationUser
-            {
-                Id = ADMIN_ID,
-                UserName = "admin@gmail.com",
-                NormalizedUserName = "ADMIN@GMAIL.COM",
-                Email = "admin@gmail.com",
-                NormalizedEmail = "ADMIN@GMAIL.COM",
-                EmailConfirmed = true,
-                BranchId = 1
-            };
-
-            //set user password
-            PasswordHasher<ApplicationUser> ph = new PasswordHasher<ApplicationUser>();
-            appUser.PasswordHash = ph.HashPassword(appUser, "password");
-
-            //seed user
-            builder.Entity<ApplicationUser>().HasData(appUser);
-            builder.Entity<Branch>().HasData(new Branch
-            {
-                ID = 1,
-                Name = "Headquarter",
-                DbConnectionString = "aspnet-SAAS_Deployment-Headquarter"
-            });
-
-
-            //set user role to admin
-            builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
-            {
-                RoleId = ROLE_ID,
-                UserId = ADMIN_ID
-            });
-
+            optionsBuilder.UseSqlServer(_branch.DbConnectionString);
         }
+
     }
 }

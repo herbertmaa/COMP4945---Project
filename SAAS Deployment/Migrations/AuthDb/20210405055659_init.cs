@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace SAAS_Deployment.Migrations
+namespace SAAS_Deployment.Migrations.AuthDb
 {
     public partial class init : Migration
     {
@@ -59,52 +59,6 @@ namespace SAAS_Deployment.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Branch", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Client",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(nullable: false),
-                    LastName = table.Column<string>(nullable: false),
-                    Address = table.Column<string>(nullable: false),
-                    Email = table.Column<string>(nullable: false),
-                    Branch = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Client", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Employee",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: false),
-                    Address = table.Column<string>(nullable: false),
-                    DateJoined = table.Column<DateTime>(nullable: false),
-                    EmerContact = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Employee", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "FullAddress",
-                columns: table => new
-                {
-                    Street = table.Column<string>(nullable: false),
-                    City = table.Column<string>(nullable: true),
-                    Province = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FullAddress", x => x.Street);
                 });
 
             migrationBuilder.CreateTable(
@@ -216,12 +170,12 @@ namespace SAAS_Deployment.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "7a0126b9-6462-46b4-a784-8d7eb96decfd", "7a0126b9-6462-46b4-a784-8d7eb96decfd", "Admin", "ADMIN" });
+                values: new object[] { "0da89324-d99d-4b3e-a426-be9e78891a6a", "0da89324-d99d-4b3e-a426-be9e78891a6a", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "BranchId", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "6918d7d6-c17a-40d6-8fa2-7e2e3094b34e", 0, 1, "03634558-2b4f-46e3-ac2f-748a597c8ed6", "admin@gmail.com", true, false, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAEJOpSrI7YV2fZturBpldfFxtgpiXEeYUQQrmuY9cb6oC7oukGg7IfeRseh5OvgPo0g==", null, false, "9e67ee67-d6d0-495f-ad8a-ec4028050a5c", false, "admin@gmail.com" });
+                values: new object[] { "93b34979-8e9a-45a2-8002-c00d38337541", 0, 1, "05a91b8b-f8e6-422b-9ae9-e5e151170339", "admin@gmail.com", true, false, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAEO1keV3hME60sEoQSxEagDldTjWHrWKfsCMJNNjBKh3Snf9OvD9SLNJIbb+EFfJKUg==", null, false, "85310def-4a46-4d7f-8257-e1765d317788", false, "admin@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "Branch",
@@ -231,7 +185,7 @@ namespace SAAS_Deployment.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "UserId", "RoleId" },
-                values: new object[] { "6918d7d6-c17a-40d6-8fa2-7e2e3094b34e", "7a0126b9-6462-46b4-a784-8d7eb96decfd" });
+                values: new object[] { "93b34979-8e9a-45a2-8002-c00d38337541", "0da89324-d99d-4b3e-a426-be9e78891a6a" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -292,15 +246,6 @@ namespace SAAS_Deployment.Migrations
 
             migrationBuilder.DropTable(
                 name: "Branch");
-
-            migrationBuilder.DropTable(
-                name: "Client");
-
-            migrationBuilder.DropTable(
-                name: "Employee");
-
-            migrationBuilder.DropTable(
-                name: "FullAddress");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
