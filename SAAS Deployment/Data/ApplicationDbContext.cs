@@ -17,6 +17,7 @@ namespace SAAS_Deployment.Data
         {
             _branch = branchProvider.GetBranch();
         }
+
         public DbSet<Employee> Employee { get; set; }
         public DbSet<FullAddress> FullAddress { get; set; }
         public DbSet<Client> Client { get; set; }

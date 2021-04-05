@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace SAAS_Deployment.Migrations
+namespace SAAS_Deployment.Migrations.ApplicationDb
 {
     public partial class init : Migration
     {

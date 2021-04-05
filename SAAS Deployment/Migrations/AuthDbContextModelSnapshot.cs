@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SAAS_Deployment.Data;
 
-namespace SAAS_Deployment.Migrations.AuthDb
+namespace SAAS_Deployment.Migrations
 {
     [DbContext(typeof(AuthDbContext))]
     partial class AuthDbContextModelSnapshot : ModelSnapshot
@@ -48,8 +48,8 @@ namespace SAAS_Deployment.Migrations.AuthDb
                     b.HasData(
                         new
                         {
-                            Id = "0da89324-d99d-4b3e-a426-be9e78891a6a",
-                            ConcurrencyStamp = "0da89324-d99d-4b3e-a426-be9e78891a6a",
+                            Id = "ef49a9c6-6839-4ff0-a695-1e5c811592dc",
+                            ConcurrencyStamp = "ef49a9c6-6839-4ff0-a695-1e5c811592dc",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -142,8 +142,8 @@ namespace SAAS_Deployment.Migrations.AuthDb
                     b.HasData(
                         new
                         {
-                            UserId = "93b34979-8e9a-45a2-8002-c00d38337541",
-                            RoleId = "0da89324-d99d-4b3e-a426-be9e78891a6a"
+                            UserId = "1453e6cc-95ad-4fc6-ba13-08cd4e714978",
+                            RoleId = "ef49a9c6-6839-4ff0-a695-1e5c811592dc"
                         });
                 });
 
@@ -236,18 +236,18 @@ namespace SAAS_Deployment.Migrations.AuthDb
                     b.HasData(
                         new
                         {
-                            Id = "93b34979-8e9a-45a2-8002-c00d38337541",
+                            Id = "1453e6cc-95ad-4fc6-ba13-08cd4e714978",
                             AccessFailedCount = 0,
                             BranchId = 1,
-                            ConcurrencyStamp = "05a91b8b-f8e6-422b-9ae9-e5e151170339",
+                            ConcurrencyStamp = "671a8dbb-3590-4b69-8e5d-5d93dbecca15",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEO1keV3hME60sEoQSxEagDldTjWHrWKfsCMJNNjBKh3Snf9OvD9SLNJIbb+EFfJKUg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELOo/AhaE7oGdetRxfQyCTMihoE/K/1AX/yHmMT53XkGUhJ8Bp6i5TgZZyIGB6YqlA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "85310def-4a46-4d7f-8257-e1765d317788",
+                            SecurityStamp = "8ee9ec71-4e84-4f30-ab95-1aedca7a8824",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         });
@@ -276,7 +276,7 @@ namespace SAAS_Deployment.Migrations.AuthDb
                         new
                         {
                             ID = 1,
-                            DbConnectionString = "aspnet-SAAS_Deployment-Headquarter",
+                            DbConnectionString = "Server=(localdb)\\mssqllocaldb;Database=aspnet-SAAS_Deployment-Headquarter;Trusted_Connection=True;MultipleActiveResultSets=true",
                             Name = "Headquarter"
                         });
                 });

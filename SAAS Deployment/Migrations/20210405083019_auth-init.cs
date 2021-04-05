@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace SAAS_Deployment.Migrations.AuthDb
+namespace SAAS_Deployment.Migrations
 {
-    public partial class init : Migration
+    public partial class authinit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -170,22 +170,22 @@ namespace SAAS_Deployment.Migrations.AuthDb
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "0da89324-d99d-4b3e-a426-be9e78891a6a", "0da89324-d99d-4b3e-a426-be9e78891a6a", "Admin", "ADMIN" });
+                values: new object[] { "ef49a9c6-6839-4ff0-a695-1e5c811592dc", "ef49a9c6-6839-4ff0-a695-1e5c811592dc", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "BranchId", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "93b34979-8e9a-45a2-8002-c00d38337541", 0, 1, "05a91b8b-f8e6-422b-9ae9-e5e151170339", "admin@gmail.com", true, false, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAEO1keV3hME60sEoQSxEagDldTjWHrWKfsCMJNNjBKh3Snf9OvD9SLNJIbb+EFfJKUg==", null, false, "85310def-4a46-4d7f-8257-e1765d317788", false, "admin@gmail.com" });
+                values: new object[] { "1453e6cc-95ad-4fc6-ba13-08cd4e714978", 0, 1, "671a8dbb-3590-4b69-8e5d-5d93dbecca15", "admin@gmail.com", true, false, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAELOo/AhaE7oGdetRxfQyCTMihoE/K/1AX/yHmMT53XkGUhJ8Bp6i5TgZZyIGB6YqlA==", null, false, "8ee9ec71-4e84-4f30-ab95-1aedca7a8824", false, "admin@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "Branch",
                 columns: new[] { "ID", "DbConnectionString", "Name" },
-                values: new object[] { 1, "aspnet-SAAS_Deployment-Headquarter", "Headquarter" });
+                values: new object[] { 1, "Server=(localdb)\\mssqllocaldb;Database=aspnet-SAAS_Deployment-Headquarter;Trusted_Connection=True;MultipleActiveResultSets=true", "Headquarter" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "UserId", "RoleId" },
-                values: new object[] { "93b34979-8e9a-45a2-8002-c00d38337541", "0da89324-d99d-4b3e-a426-be9e78891a6a" });
+                values: new object[] { "1453e6cc-95ad-4fc6-ba13-08cd4e714978", "ef49a9c6-6839-4ff0-a695-1e5c811592dc" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

@@ -56,7 +56,7 @@ namespace SAAS_Deployment.Data
             {
                 ID = 1,
                 Name = "Headquarter",
-                DbConnectionString = "aspnet-SAAS_Deployment-Headquarter"
+                DbConnectionString = "Server=(localdb)\\mssqllocaldb;Database=aspnet-SAAS_Deployment-Headquarter;Trusted_Connection=True;MultipleActiveResultSets=true"
             });
 
 
