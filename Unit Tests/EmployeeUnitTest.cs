@@ -25,7 +25,7 @@ namespace Unit_Tests
         public void CreateEmployee()
         {
             string url = "https://localhost:44372/Employees";
-            ChromeDriver driver = new ChromeDriver();
+            ChromeDriver driver = CreateDriver();
             driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl(url);
 
@@ -60,13 +60,14 @@ namespace Unit_Tests
             new SelectElement(driver.FindElement(By.Id("SelectedRolesID"))).SelectByText("Admin");
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             driver.FindElement(By.XPath("//Input[@type='submit']")).Click();
+            driver.Quit();
         }
 
         [Test, Order(2)]
         public void EditEmployee()
         {
             string url = "https://localhost:44372/Employees";
-            ChromeDriver driver = new ChromeDriver();
+            ChromeDriver driver = CreateDriver();
             driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl(url);
 
@@ -111,13 +112,14 @@ namespace Unit_Tests
             driver.FindElement(By.Id("Address")).SendKeys("Coquitlam");
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             driver.FindElement(By.XPath("//Input[@type='submit']")).Click();
+            driver.Quit();
         }
 
         [Test, Order(3)]
         public void DetailsEditEmployee()
         {
             string url = "https://localhost:44372/Employees";
-            ChromeDriver driver = new ChromeDriver();
+            ChromeDriver driver = CreateDriver();
             driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl(url);
 
@@ -141,6 +143,7 @@ namespace Unit_Tests
             Thread.Sleep(2000);
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             driver.FindElement(By.LinkText("Back to List")).Click();
+            driver.Quit();
         }
 
 
@@ -148,7 +151,7 @@ namespace Unit_Tests
         public void DeleteEmployee()
         {
             string url = "https://localhost:44372/Employees";
-            ChromeDriver driver = new ChromeDriver();
+            ChromeDriver driver = CreateDriver();
             driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl(url);
 
@@ -167,6 +170,7 @@ namespace Unit_Tests
             driver.FindElement(By.LinkText("Delete")).Click();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             driver.FindElement(By.XPath("//Input[@type='submit']")).Click();
+            driver.Quit();
         }
 
     }
