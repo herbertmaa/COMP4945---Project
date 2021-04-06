@@ -63,7 +63,7 @@ namespace SAAS_Deployment.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DateJoined,EmerContact,Id,FirstName,LastName,Email,Branch,Address,SelectedRolesID")] Employee employee)
+        public async Task<IActionResult> Create([Bind("DateJoined,EmerContact,Id,FirstName,LastName,Email,Address,SelectedRolesID")] Employee employee)
         {
             if (ModelState.IsValid)
             {
@@ -99,7 +99,7 @@ namespace SAAS_Deployment.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DateJoined,EmerContact,Id,FirstName,LastName,Email,Branch,Address,SelectedRolesID")] Employee employee)
+        public async Task<IActionResult> Edit(int id, [Bind("DateJoined,EmerContact,Id,FirstName,LastName,Email,Address,SelectedRolesID")] Employee employee)
         {
             if (id != employee.Id)
             {

@@ -10,7 +10,7 @@ using SAAS_Deployment.Data;
 namespace SAAS_Deployment.Migrations.ApplicationDb
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210405234509_init")]
+    [Migration("20210406020857_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -75,9 +75,6 @@ namespace SAAS_Deployment.Migrations.ApplicationDb
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Branch")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Discriminator")

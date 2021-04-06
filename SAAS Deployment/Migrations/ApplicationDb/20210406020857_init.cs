@@ -47,7 +47,6 @@ namespace SAAS_Deployment.Migrations.ApplicationDb
                     FirstName = table.Column<string>(nullable: false),
                     LastName = table.Column<string>(nullable: false),
                     Email = table.Column<string>(nullable: false),
-                    Branch = table.Column<string>(nullable: true),
                     Address = table.Column<string>(nullable: true),
                     Discriminator = table.Column<string>(nullable: false),
                     FullAddressId = table.Column<int>(nullable: true),

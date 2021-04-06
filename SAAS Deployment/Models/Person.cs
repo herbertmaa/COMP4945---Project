@@ -26,8 +26,6 @@ namespace SAAS_Deployment.Models
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string Email { get; set; }
 
-        public string Branch { get; set; }
-
         public string Address { get; set; }
 
         //[ForeignKey("FullAddress")]
