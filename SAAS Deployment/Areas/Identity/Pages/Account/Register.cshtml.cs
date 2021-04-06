@@ -18,7 +18,7 @@ using SAAS_Deployment.Models;
 
 namespace SAAS_Deployment.Areas.Identity.Pages.Account
 {
-    [AllowAnonymous]
+    [Authorize(Policy = "writepolicy")]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> _signInManager;

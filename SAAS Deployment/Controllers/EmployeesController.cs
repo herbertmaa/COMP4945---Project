@@ -14,10 +14,12 @@ namespace SAAS_Deployment.Controllers
     public class EmployeesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly AuthDbContext _authDbContext;
 
-        public EmployeesController(ApplicationDbContext context)
+        public EmployeesController(ApplicationDbContext context, AuthDbContext authDbContext)
         {
             _context = context;
+            _authDbContext = authDbContext;
         }
 
         // GET: Employees
@@ -51,7 +53,7 @@ namespace SAAS_Deployment.Controllers
         [Authorize(Roles = "Admin, Manager")]
         public IActionResult Create()
         {
-            var roles = _context.Roles.ToList();
+            var roles = _authDbContext.Roles.ToList();
             ViewBag.Roles = new SelectList(roles, "Id", "Name");
             return View();
         }
@@ -61,11 +63,11 @@ namespace SAAS_Deployment.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DateJoined,EmerContact,Id,FirstName,LastName,Email,Branch,Address,SelectedRolesID")] Employee employee)
+        public async Task<IActionResult> Create([Bind("DateJoined,EmerContact,Id,FirstName,LastName,Email,Address,SelectedRolesID")] Employee employee)
         {
             if (ModelState.IsValid)
             {
-                employee.Roles = _context.Roles.Find(employee.SelectedRolesID);
+                employee.Roles = _authDbContext.Roles.Find(employee.SelectedRolesID);
                 _context.Add(employee);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -87,7 +89,7 @@ namespace SAAS_Deployment.Controllers
             {
                 return NotFound();
             }
-            var roles = _context.Roles.ToList();
+            var roles = _authDbContext.Roles.ToList();
             ViewBag.Roles = new SelectList(roles, "Id", "Name");
             return View(employee);
         }
@@ -97,7 +99,7 @@ namespace SAAS_Deployment.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DateJoined,EmerContact,Id,FirstName,LastName,Email,Branch,Address,SelectedRolesID")] Employee employee)
+        public async Task<IActionResult> Edit(int id, [Bind("DateJoined,EmerContact,Id,FirstName,LastName,Email,Address,SelectedRolesID")] Employee employee)
         {
             if (id != employee.Id)
             {
@@ -108,7 +110,7 @@ namespace SAAS_Deployment.Controllers
             {
                 try
                 {
-                    employee.Roles = _context.Roles.Find(employee.SelectedRolesID);
+                    employee.Roles = _authDbContext.Roles.Find(employee.SelectedRolesID);
                     _context.Update(employee);
                     await _context.SaveChangesAsync();
                 }
