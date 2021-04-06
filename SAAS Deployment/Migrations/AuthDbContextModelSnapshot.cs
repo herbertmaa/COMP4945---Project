@@ -48,10 +48,24 @@ namespace SAAS_Deployment.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "77265d8f-a63f-4f0d-a392-3122b5bf7a67",
-                            ConcurrencyStamp = "77265d8f-a63f-4f0d-a392-3122b5bf7a67",
+                            Id = "e0081914-a266-4edf-b4ca-b9d7923accc5",
+                            ConcurrencyStamp = "e0081914-a266-4edf-b4ca-b9d7923accc5",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "9ebf2255-1959-4660-b539-c19e5e7ec455",
+                            ConcurrencyStamp = "9ebf2255-1959-4660-b539-c19e5e7ec455",
+                            Name = "Manager",
+                            NormalizedName = "MANAGER"
+                        },
+                        new
+                        {
+                            Id = "8a6e0da2-1d8a-4ec1-b988-69d7ffc98166",
+                            ConcurrencyStamp = "8a6e0da2-1d8a-4ec1-b988-69d7ffc98166",
+                            Name = "Employee",
+                            NormalizedName = "EMPLOYEE"
                         });
                 });
 
@@ -142,8 +156,8 @@ namespace SAAS_Deployment.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "9c2c2130-4f4d-49ad-a21c-13b008fb2ca6",
-                            RoleId = "77265d8f-a63f-4f0d-a392-3122b5bf7a67"
+                            UserId = "06e817eb-8fd1-41ab-af31-f8ee882ef110",
+                            RoleId = "e0081914-a266-4edf-b4ca-b9d7923accc5"
                         });
                 });
 
@@ -236,18 +250,18 @@ namespace SAAS_Deployment.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9c2c2130-4f4d-49ad-a21c-13b008fb2ca6",
+                            Id = "06e817eb-8fd1-41ab-af31-f8ee882ef110",
                             AccessFailedCount = 0,
                             BranchId = 1,
-                            ConcurrencyStamp = "8f756734-c68b-4375-977c-deba07deb2a8",
+                            ConcurrencyStamp = "0fe62b26-d9a5-4a43-b4c5-24d95316595b",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJupvlYzUbgzdar59fnylkxpvrPxpby1wTCkFb8k+IDhCl33pp2iT7qWdGY502K8Gw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJNXoUyV5Dcix3h2e8dsXquMxnI5zkc5FbYAE3DqWeSzc+UhAeqsmvqr4ws9K7L8nw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b139262e-b6cb-4618-9912-348c530189c8",
+                            SecurityStamp = "329f0695-b04c-4881-b3fe-47ec74dbf499",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         });

@@ -23,16 +23,16 @@ namespace SAAS_Deployment.Data
             base.OnModelCreating(builder);
 
             string ADMIN_ID = Guid.NewGuid().ToString();
+            string MANAGER_ID = Guid.NewGuid().ToString();
+            string EMPLOYEE_ID = Guid.NewGuid().ToString();
             string ROLE_ID = Guid.NewGuid().ToString();
 
             //seed admin role
-            builder.Entity<IdentityRole>().HasData(new IdentityRole
-            {
-                Id = ROLE_ID,
-                Name = "Admin",
-                NormalizedName = "ADMIN",
-                ConcurrencyStamp = ROLE_ID
-            });
+            builder.Entity<IdentityRole>().HasData(
+                new { Id = ROLE_ID, Name = "Admin", NormalizedName = "ADMIN", ConcurrencyStamp = ROLE_ID },
+                new { Id = MANAGER_ID, Name = "Manager", NormalizedName = "MANAGER", ConcurrencyStamp = MANAGER_ID },
+                new { Id = EMPLOYEE_ID, Name = "Employee", NormalizedName = "EMPLOYEE", ConcurrencyStamp = EMPLOYEE_ID });
+
 
             //create user
             var appUser = new ApplicationUser

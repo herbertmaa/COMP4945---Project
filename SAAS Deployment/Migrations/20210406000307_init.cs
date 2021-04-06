@@ -170,12 +170,17 @@ namespace SAAS_Deployment.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "77265d8f-a63f-4f0d-a392-3122b5bf7a67", "77265d8f-a63f-4f0d-a392-3122b5bf7a67", "Admin", "ADMIN" });
+                values: new object[,]
+                {
+                    { "e0081914-a266-4edf-b4ca-b9d7923accc5", "e0081914-a266-4edf-b4ca-b9d7923accc5", "Admin", "ADMIN" },
+                    { "9ebf2255-1959-4660-b539-c19e5e7ec455", "9ebf2255-1959-4660-b539-c19e5e7ec455", "Manager", "MANAGER" },
+                    { "8a6e0da2-1d8a-4ec1-b988-69d7ffc98166", "8a6e0da2-1d8a-4ec1-b988-69d7ffc98166", "Employee", "EMPLOYEE" }
+                });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "BranchId", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "9c2c2130-4f4d-49ad-a21c-13b008fb2ca6", 0, 1, "8f756734-c68b-4375-977c-deba07deb2a8", "admin@gmail.com", true, false, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAEJupvlYzUbgzdar59fnylkxpvrPxpby1wTCkFb8k+IDhCl33pp2iT7qWdGY502K8Gw==", null, false, "b139262e-b6cb-4618-9912-348c530189c8", false, "admin@gmail.com" });
+                values: new object[] { "06e817eb-8fd1-41ab-af31-f8ee882ef110", 0, 1, "0fe62b26-d9a5-4a43-b4c5-24d95316595b", "admin@gmail.com", true, false, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAEJNXoUyV5Dcix3h2e8dsXquMxnI5zkc5FbYAE3DqWeSzc+UhAeqsmvqr4ws9K7L8nw==", null, false, "329f0695-b04c-4881-b3fe-47ec74dbf499", false, "admin@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "Branch",
@@ -185,7 +190,7 @@ namespace SAAS_Deployment.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "UserId", "RoleId" },
-                values: new object[] { "9c2c2130-4f4d-49ad-a21c-13b008fb2ca6", "77265d8f-a63f-4f0d-a392-3122b5bf7a67" });
+                values: new object[] { "06e817eb-8fd1-41ab-af31-f8ee882ef110", "e0081914-a266-4edf-b4ca-b9d7923accc5" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
