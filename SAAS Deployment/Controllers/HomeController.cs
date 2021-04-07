@@ -20,6 +20,8 @@ namespace SAAS_Deployment.Controllers {
         }
 
         public IActionResult Privacy() {
+            //for testing thrown exception
+            throw new Exception("Error in privacy view");
             return View();
         }
 
