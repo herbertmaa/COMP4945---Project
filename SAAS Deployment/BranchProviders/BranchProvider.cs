@@ -15,6 +15,7 @@ namespace SAAS_Deployment.BranchProviders
         private readonly AuthDbContext _context;
         public BranchProvider(IHttpContextAccessor accessor, AuthDbContext context)
         {
+
             _username = accessor.HttpContext.User.Identity.Name;
             _context = context;
         }
@@ -34,15 +35,8 @@ namespace SAAS_Deployment.BranchProviders
             }
             else
             {
-                return new Branch
-                {
-                    ID = 0,
-                    Name = "SAAS Deployment",
-                    DbConnectionString = "Server=(localdb)\\mssqllocaldb;Database=aspnet-SAAS_Deployment-Branch1;Trusted_Connection=True;MultipleActiveResultSets=true"
-                };
+                return new Branch { Name = "SAAS Deployment", DbConnectionString = "dummy" };
             }
-
-            //return new Branch { DbConnectionString = "Server=(localdb)\\mssqllocaldb;Database=aspnet-SAAS_Deployment-Branch1;Trusted_Connection=True;MultipleActiveResultSets=true" };
         }
     }
 }

@@ -37,17 +37,7 @@
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label>Role</label>
-                <select asp-for="SelectedRolesID" class="form-control" asp-items=@ViewBag.Roles>
-                </select>
-                <span asp-validation-for="SelectedRolesID" class="text-danger"></span>
-            </div>
+            <partial name="_FullAddressPartial" for="FullAddress"/>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

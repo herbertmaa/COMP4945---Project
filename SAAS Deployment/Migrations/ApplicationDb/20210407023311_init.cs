@@ -11,7 +11,7 @@ namespace SAAS_Deployment.Migrations.ApplicationDb
                 name: "FullAddress",
                 columns: table => new
                 {
-                    FullAddressId = table.Column<int>(nullable: false)
+                    ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Street = table.Column<string>(nullable: true),
                     City = table.Column<string>(nullable: true),
@@ -21,25 +21,11 @@ namespace SAAS_Deployment.Migrations.ApplicationDb
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FullAddress", x => x.FullAddressId);
+                    table.PrimaryKey("PK_FullAddress", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
-                name: "IdentityRole",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    NormalizedName = table.Column<string>(nullable: true),
-                    ConcurrencyStamp = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_IdentityRole", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Person",
+                name: "Client",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -47,48 +33,61 @@ namespace SAAS_Deployment.Migrations.ApplicationDb
                     FirstName = table.Column<string>(nullable: false),
                     LastName = table.Column<string>(nullable: false),
                     Email = table.Column<string>(nullable: false),
-                    Address = table.Column<string>(nullable: true),
-                    Discriminator = table.Column<string>(nullable: false),
-                    FullAddressId = table.Column<int>(nullable: true),
-                    DateJoined = table.Column<DateTime>(nullable: true),
-                    EmerContact = table.Column<string>(nullable: true),
-                    RolesId = table.Column<string>(nullable: true)
+                    FullAddressID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Person", x => x.Id);
+                    table.PrimaryKey("PK_Client", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Person_IdentityRole_RolesId",
-                        column: x => x.RolesId,
-                        principalTable: "IdentityRole",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Person_FullAddress_FullAddressId",
-                        column: x => x.FullAddressId,
+                        name: "FK_Client_FullAddress_FullAddressID",
+                        column: x => x.FullAddressID,
                         principalTable: "FullAddress",
-                        principalColumn: "FullAddressId",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Employee",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(nullable: false),
+                    LastName = table.Column<string>(nullable: false),
+                    Email = table.Column<string>(nullable: false),
+                    FullAddressID = table.Column<int>(nullable: true),
+                    DateJoined = table.Column<DateTime>(nullable: false),
+                    EmerContact = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Employee", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Employee_FullAddress_FullAddressID",
+                        column: x => x.FullAddressID,
+                        principalTable: "FullAddress",
+                        principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Person_RolesId",
-                table: "Person",
-                column: "RolesId");
+                name: "IX_Client_FullAddressID",
+                table: "Client",
+                column: "FullAddressID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Person_FullAddressId",
-                table: "Person",
-                column: "FullAddressId");
+                name: "IX_Employee_FullAddressID",
+                table: "Employee",
+                column: "FullAddressID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Person");
+                name: "Client");
 
             migrationBuilder.DropTable(
-                name: "IdentityRole");
+                name: "Employee");
 
             migrationBuilder.DropTable(
                 name: "FullAddress");

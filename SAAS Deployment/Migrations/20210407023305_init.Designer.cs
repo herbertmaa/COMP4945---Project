@@ -10,7 +10,7 @@ using SAAS_Deployment.Data;
 namespace SAAS_Deployment.Migrations
 {
     [DbContext(typeof(AuthDbContext))]
-    [Migration("20210406020841_init")]
+    [Migration("20210407023305_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,22 +50,22 @@ namespace SAAS_Deployment.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "098681e1-1d6d-4947-abd9-b34a2cf08a4f",
-                            ConcurrencyStamp = "098681e1-1d6d-4947-abd9-b34a2cf08a4f",
+                            Id = "2fa2c5f8-fe71-4a1d-8a1d-2738cf34fb26",
+                            ConcurrencyStamp = "2fa2c5f8-fe71-4a1d-8a1d-2738cf34fb26",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "2e95da4a-8ca0-4170-81e6-575ff11bfe60",
-                            ConcurrencyStamp = "2e95da4a-8ca0-4170-81e6-575ff11bfe60",
+                            Id = "bac31785-3b2d-43ca-b3ca-144421f152bb",
+                            ConcurrencyStamp = "bac31785-3b2d-43ca-b3ca-144421f152bb",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         },
                         new
                         {
-                            Id = "92b48b81-fba8-4cb5-8c56-699c0c78b227",
-                            ConcurrencyStamp = "92b48b81-fba8-4cb5-8c56-699c0c78b227",
+                            Id = "bd9dd199-8b37-459a-ab7a-506436f8881a",
+                            ConcurrencyStamp = "bd9dd199-8b37-459a-ab7a-506436f8881a",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         });
@@ -158,8 +158,8 @@ namespace SAAS_Deployment.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "07dbdffb-35ad-4d9a-bbb0-38d572767173",
-                            RoleId = "098681e1-1d6d-4947-abd9-b34a2cf08a4f"
+                            UserId = "0358f5cd-92d2-44e8-a825-9100a9c1b9d5",
+                            RoleId = "2fa2c5f8-fe71-4a1d-8a1d-2738cf34fb26"
                         });
                 });
 
@@ -252,18 +252,18 @@ namespace SAAS_Deployment.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "07dbdffb-35ad-4d9a-bbb0-38d572767173",
+                            Id = "0358f5cd-92d2-44e8-a825-9100a9c1b9d5",
                             AccessFailedCount = 0,
                             BranchId = 1,
-                            ConcurrencyStamp = "fc464aaf-27bc-4d90-904a-25bc6777bb6b",
+                            ConcurrencyStamp = "ff7597c7-f20a-4a0a-8a64-5b8d1df03ff7",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJY9GsZc5VcKGAw4SQFdbSHNSRsX4Lj95+tAvmFWV21qunH5H4XLRxLva/3XNzJ4JA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEN1KuacVrSD0VPqzony23LQlTCZ4+oElNCF4pURQHcyVWIjAok/YKFrInHdjosW+Sw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8c435ece-5d6d-43cf-9be4-dfe8c9808f54",
+                            SecurityStamp = "5f92e5d7-4ca8-4627-b702-6448dbb468f6",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         });

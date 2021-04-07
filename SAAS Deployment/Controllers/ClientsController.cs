@@ -21,14 +21,14 @@ namespace SAAS_Deployment.Controllers
         }
 
         // GET: Clients
-        [Authorize(Roles = "Admin, Manager, Employee")]
+        [Authorize(Policy = "readpolicy")]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Client.ToListAsync());
+            return View(await _context.Client.Include(c => c.FullAddress).ToListAsync());
         }
 
         // GET: Clients/Details/5
-        [Authorize(Roles = "Admin, Manager, Employee")]
+        [Authorize(Policy = "readpolicy")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -36,7 +36,7 @@ namespace SAAS_Deployment.Controllers
                 return NotFound();
             }
 
-            var client = await _context.Client
+            var client = await _context.Client.Include(c=>c.FullAddress)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (client == null)
             {
@@ -47,7 +47,7 @@ namespace SAAS_Deployment.Controllers
         }
 
         // GET: Clients/Create
-        [Authorize(Roles = "Admin, Manager, Employee")]
+        [Authorize(Policy = "writepolicy")]
         public IActionResult Create()
         {
             return View();
@@ -58,10 +58,13 @@ namespace SAAS_Deployment.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Email,Address")] Client client)
+        [Authorize(Policy = "writepolicy")]
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Email")] Client client,
+            [Bind("Street,City,PostalCode,Province,Country")] FullAddress fullAddress)
         {
             if (ModelState.IsValid)
             {
+                client.FullAddress = fullAddress;
                 _context.Add(client);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -69,8 +72,8 @@ namespace SAAS_Deployment.Controllers
             return View(client);
         }
 
-        // GET: Clients/Edit/
-        [Authorize(Roles = "Admin, Manager, Employee")]
+        // GET: Clients/Edit/5
+        [Authorize(Policy = "writepolicy")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -78,7 +81,7 @@ namespace SAAS_Deployment.Controllers
                 return NotFound();
             }
 
-            var client = await _context.Client.FindAsync(id);
+            var client = await _context.Client.Include(c=> c.FullAddress).FirstOrDefaultAsync(c => c.Id == id);
             if (client == null)
             {
                 return NotFound();
@@ -91,7 +94,9 @@ namespace SAAS_Deployment.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Email,Address")] Client client)
+        [Authorize(Policy = "writepolicy")]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Email")] Client client,
+            [Bind("ID,Street,City,PostalCode,Province,Country")] FullAddress fullAddress)
         {
             if (id != client.Id)
             {
@@ -102,6 +107,7 @@ namespace SAAS_Deployment.Controllers
             {
                 try
                 {
+                    _context.Update(fullAddress);
                     _context.Update(client);
                     await _context.SaveChangesAsync();
                 }
@@ -122,7 +128,7 @@ namespace SAAS_Deployment.Controllers
         }
 
         // GET: Clients/Delete/5
-        [Authorize(Roles = "Admin, Manager, Employee")]
+        [Authorize(Policy = "writepolicy")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -143,9 +149,11 @@ namespace SAAS_Deployment.Controllers
         // POST: Clients/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "writepolicy")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var client = await _context.Client.FindAsync(id);
+            var client = await _context.Client.Include(c => c.FullAddress).FirstOrDefaultAsync(c => c.Id == id);
+            _context.FullAddress.Remove(client.FullAddress);
             _context.Client.Remove(client);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
