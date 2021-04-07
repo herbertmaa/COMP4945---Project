@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using SAAS_Deployment.BranchProviders;
 using SAAS_Deployment.Data;
 using SAAS_Deployment.Models;
 
@@ -14,10 +15,12 @@ namespace SAAS_Deployment.Controllers
     public class ClientsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly AuthDbContext _authContext;
 
-        public ClientsController(ApplicationDbContext context)
+        public ClientsController(ApplicationDbContext context, AuthDbContext authContext)
         {
             _context = context;
+            _authContext = authContext;
         }
 
         // GET: Clients
@@ -36,7 +39,7 @@ namespace SAAS_Deployment.Controllers
                 return NotFound();
             }
 
-            var client = await _context.Client.Include(c=>c.FullAddress)
+            var client = await _context.Client.Include(c => c.FullAddress)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (client == null)
             {
@@ -81,7 +84,7 @@ namespace SAAS_Deployment.Controllers
                 return NotFound();
             }
 
-            var client = await _context.Client.Include(c=> c.FullAddress).FirstOrDefaultAsync(c => c.Id == id);
+            var client = await _context.Client.Include(c => c.FullAddress).FirstOrDefaultAsync(c => c.Id == id);
             if (client == null)
             {
                 return NotFound();
@@ -157,6 +160,58 @@ namespace SAAS_Deployment.Controllers
             _context.Client.Remove(client);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        // GET: Client/Transfer/5
+        [Authorize(Policy = "writepolicy")]
+        public async Task<IActionResult> Transfer(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var client = await _context.Client.Include(c => c.FullAddress).FirstOrDefaultAsync(c => c.Id == id);
+            if (client == null)
+            {
+                return NotFound();
+            }
+            ViewData["branches"] = _authContext.Branch.ToList();
+            return View(client);
+        }
+
+        // POST: Client/Transfer/5
+        [HttpPost, ActionName("Transfer")]
+        [ValidateAntiForgeryToken]
+        [Authorize(Policy = "writepolicy")]
+        public async Task<IActionResult> TransferConfirmed(int id, int transferBranchId)
+        {
+            var client = await _context.Client.Include(c => c.FullAddress).FirstOrDefaultAsync(c => c.Id == id);
+            var address = client.FullAddress;
+
+            Branch Branch = await _authContext.Branch.FindAsync(transferBranchId);
+            var options = new DbContextOptions<ApplicationDbContext>();
+            var provider = new DummyBranchProvider() { Branch = Branch };
+            using var targetDbContext = new ApplicationDbContext(options, provider);
+
+            if (targetDbContext.Client.Any(c => c.Email == client.Email))
+            {
+                throw new Exception("Client with same email already exist in target branch");
+            }
+
+            _context.FullAddress.Remove(client.FullAddress);
+            _context.Client.Remove(client);
+            await _context.SaveChangesAsync();
+
+            client.Id = 0;
+            address.ID = 0;
+
+            client.FullAddress = address;
+            var addedEmployee = await targetDbContext.Client.AddAsync(client);
+            await targetDbContext.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+
         }
 
         private bool ClientExists(int id)

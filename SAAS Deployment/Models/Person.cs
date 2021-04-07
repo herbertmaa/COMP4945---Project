@@ -27,5 +27,8 @@ namespace SAAS_Deployment.Models
         public string Email { get; set; }
     
         public FullAddress FullAddress { get; set; }
+
+        [NotMapped]
+        public int TransferBranchId { get; set; }
     }
 }
