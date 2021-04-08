@@ -10,29 +10,53 @@
     <h4>Client</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.FirstName)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.FirstName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.LastName)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.LastName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Email)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Email)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Address)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FullAddress.Street)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Address)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FullAddress.Street)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FullAddress.City)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FullAddress.City)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FullAddress.Province)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FullAddress.Province)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FullAddress.Country)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FullAddress.Country)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FullAddress.PostalCode)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FullAddress.PostalCode)
         </dd>
     </dl>
 </div>

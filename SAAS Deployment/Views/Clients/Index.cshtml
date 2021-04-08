@@ -22,7 +22,7 @@
                 @Html.DisplayNameFor(model => model.Email)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Address)
+                Address
             </th>
             <th></th>
         </tr>
@@ -40,12 +40,17 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Address)
+                @Html.DisplayFor(modelItem => item.FullAddress.Street),
+                @Html.DisplayFor(modelItem => item.FullAddress.City),
+                @Html.DisplayFor(modelItem => item.FullAddress.Province),
+                @Html.DisplayFor(modelItem => item.FullAddress.Country),
+                @Html.DisplayFor(modelItem => item.FullAddress.PostalCode)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
+                <a asp-action="Transfer" asp-route-id="@item.Id">Transfer</a>
             </td>
         </tr>
 }

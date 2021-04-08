@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using SAAS_Deployment.BranchProviders;
 using SAAS_Deployment.Data;
 using SAAS_Deployment.Models;
 
@@ -14,24 +15,23 @@ namespace SAAS_Deployment.Controllers
     public class EmployeesController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly AuthDbContext _authDbContext;
+        private readonly AuthDbContext _authContext;
 
-        public EmployeesController(ApplicationDbContext context, AuthDbContext authDbContext)
+        public EmployeesController(ApplicationDbContext context, AuthDbContext authContext)
         {
             _context = context;
-            _authDbContext = authDbContext;
+            _authContext = authContext;
         }
 
         // GET: Employees
-        [Authorize(Roles = "Admin, Manager")]
+        [Authorize(Policy = "readpolicy")]
         public async Task<IActionResult> Index()
         {
-            //return View(await _context.Employee.ToListAsync());
-            return View(await _context.Employee.Include(e => e.Roles).ToListAsync());
+            return View(await _context.Employee.Include(e => e.FullAddress).ToListAsync());
         }
 
         // GET: Employees/Details/5
-        [Authorize(Roles = "Admin, Manager")]
+        [Authorize(Policy = "readpolicy")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -39,7 +39,7 @@ namespace SAAS_Deployment.Controllers
                 return NotFound();
             }
 
-            var employee = await _context.Employee
+            var employee = await _context.Employee.Include(e => e.FullAddress)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (employee == null)
             {
@@ -50,11 +50,9 @@ namespace SAAS_Deployment.Controllers
         }
 
         // GET: Employees/Create
-        [Authorize(Roles = "Admin, Manager")]
+        [Authorize(Policy = "writepolicy")]
         public IActionResult Create()
         {
-            var roles = _authDbContext.Roles.ToList();
-            ViewBag.Roles = new SelectList(roles, "Id", "Name");
             return View();
         }
 
@@ -63,11 +61,13 @@ namespace SAAS_Deployment.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DateJoined,EmerContact,Id,FirstName,LastName,Email,Address,SelectedRolesID")] Employee employee)
+        [Authorize(Policy = "writepolicy")]
+        public async Task<IActionResult> Create([Bind("DateJoined,EmerContact,Id,FirstName,LastName,Email")] Employee employee,
+            [Bind("Street,City,PostalCode,Province,Country")] FullAddress fullAddress)
         {
             if (ModelState.IsValid)
             {
-                employee.Roles = _authDbContext.Roles.Find(employee.SelectedRolesID);
+                employee.FullAddress = fullAddress;
                 _context.Add(employee);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -76,7 +76,7 @@ namespace SAAS_Deployment.Controllers
         }
 
         // GET: Employees/Edit/5
-        [Authorize(Roles = "Admin, Manager")]
+        [Authorize(Policy = "writepolicy")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -84,13 +84,11 @@ namespace SAAS_Deployment.Controllers
                 return NotFound();
             }
 
-            var employee = await _context.Employee.FindAsync(id);
+            var employee = await _context.Employee.Include(e => e.FullAddress).FirstOrDefaultAsync(e => e.Id == id);
             if (employee == null)
             {
                 return NotFound();
             }
-            var roles = _authDbContext.Roles.ToList();
-            ViewBag.Roles = new SelectList(roles, "Id", "Name");
             return View(employee);
         }
 
@@ -99,7 +97,9 @@ namespace SAAS_Deployment.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DateJoined,EmerContact,Id,FirstName,LastName,Email,Address,SelectedRolesID")] Employee employee)
+        [Authorize(Policy = "writepolicy")]
+        public async Task<IActionResult> Edit(int id, [Bind("DateJoined,EmerContact,Id,FirstName,LastName,Email")] Employee employee,
+            [Bind("ID,Street,City,PostalCode,Province,Country")] FullAddress fullAddress)
         {
             if (id != employee.Id)
             {
@@ -110,7 +110,7 @@ namespace SAAS_Deployment.Controllers
             {
                 try
                 {
-                    employee.Roles = _authDbContext.Roles.Find(employee.SelectedRolesID);
+                    _context.Update(fullAddress);
                     _context.Update(employee);
                     await _context.SaveChangesAsync();
                 }
@@ -131,7 +131,7 @@ namespace SAAS_Deployment.Controllers
         }
 
         // GET: Employees/Delete/5
-        [Authorize(Roles = "Admin, Manager")]
+        [Authorize(Policy = "writepolicy")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -152,11 +152,64 @@ namespace SAAS_Deployment.Controllers
         // POST: Employees/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "writepolicy")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var employee = await _context.Employee.FindAsync(id);
+            var employee = await _context.Employee.Include(c => c.FullAddress).FirstOrDefaultAsync(c => c.Id == id);
+            _context.FullAddress.Remove(employee.FullAddress);
             _context.Employee.Remove(employee);
             await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        // GET: Employees/Transfer/5
+        [Authorize(Policy = "writepolicy")]
+        public async Task<IActionResult> Transfer(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var employee = await _context.Employee.Include(e => e.FullAddress).FirstOrDefaultAsync(e => e.Id == id);
+            if (employee == null)
+            {
+                return NotFound();
+            }
+            ViewData["branches"] = _authContext.Branch.ToList();
+            return View(employee);
+        }
+
+        // POST: Employees/Transfer/5
+        [HttpPost, ActionName("Transfer")]
+        [ValidateAntiForgeryToken]
+        [Authorize(Policy = "writepolicy")]
+        public async Task<IActionResult> TransferConfirmed(int id, int transferBranchId)
+        {
+            var employee = await _context.Employee.Include(c => c.FullAddress).FirstOrDefaultAsync(c => c.Id == id);
+            var address = employee.FullAddress;
+
+            Branch Branch = await _authContext.Branch.FindAsync(transferBranchId);
+            var options = new DbContextOptions<ApplicationDbContext>();
+            var provider = new DummyBranchProvider() { Branch = Branch };
+            using var targetDbContext = new ApplicationDbContext(options, provider);
+
+            if (targetDbContext.Employee.Any(e => e.Email == employee.Email))
+            {
+                throw new Exception("Employee with same email already exist in target branch");
+            }
+
+            _context.FullAddress.Remove(employee.FullAddress);
+            _context.Employee.Remove(employee);
+            await _context.SaveChangesAsync();
+
+            employee.Id = 0;
+            address.ID = 0;
+
+            employee.FullAddress = address;
+            var addedEmployee = await targetDbContext.Employee.AddAsync(employee);
+            await targetDbContext.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 
