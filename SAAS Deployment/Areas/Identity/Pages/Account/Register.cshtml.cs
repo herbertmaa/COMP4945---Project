@@ -59,13 +59,14 @@ namespace SAAS_Deployment.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [RegularExpression(@"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^\da-zA-Z])(.{6,15})$", ErrorMessage = "Password requires at least 1 Uppercase character, 1 Alphanumeric and 1 Special Expression character <br> The password must be at least 6 and at max 15 characters long.")]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
+            [RegularExpression(@"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^\da-zA-Z])(.{6,15})$", ErrorMessage = "Password requires at least 1 Uppercase character, 1 Alphanumeric and 1 Special Expression character <br> The password must be at least 6 and at max 15 characters long.")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
             public string Name { get; set; }
