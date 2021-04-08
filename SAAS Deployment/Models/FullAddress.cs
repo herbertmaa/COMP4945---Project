@@ -9,8 +9,8 @@ namespace SAAS_Deployment.Models
 {
     public class FullAddress
     {
-        [ForeignKey("Person")]
-        public int FullAddressId { get; set; }
+        [Key]
+        public int ID { get; set; }
 
         public string Street { get; set; }
 
@@ -21,7 +21,5 @@ namespace SAAS_Deployment.Models
         public string Province { get; set; }
 
         public string Country { get; set; }
-
-        public ICollection<Person> Persons { get; set; }
     }
 }

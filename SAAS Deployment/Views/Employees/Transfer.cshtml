@@ -1,0 +1,60 @@
+﻿@model SAAS_Deployment.Models.Employee
+
+@{
+    ViewData["Title"] = "Delete";
+    var branches = (List<Branch>)ViewData["branches"];
+}
+
+<h1>Transfer</h1>
+
+<div>
+    <h4>Employee</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DateJoined)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DateJoined)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EmerContact)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EmerContact)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+    </dl>
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Transfer">
+                <div class="form-group">
+                    <label>Transfer to branch:</label>
+                    <select asp-for="TransferBranchId" class="form-control" asp-items='new SelectList(branches,"ID","Name")'>
+                    </select>
+                    <span asp-validation-for="TransferBranchId" class="text-danger"></span>
+                </div>
+                <input type="hidden" asp-for="Id" />
+                <input type="submit" value="Transfer" class="btn btn-primary" /> |
+                <a asp-action="Index">Back to List</a>
+            </form>
+        </div>
+    </div>
+</div>

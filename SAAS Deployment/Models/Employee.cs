@@ -15,11 +15,5 @@ namespace SAAS_Deployment.Models
         
         [Required]
         public string EmerContact { get; set; }
-
-        public virtual IdentityRole Roles { get; set; }
-
-        [NotMapped]
-        public string SelectedRolesID { get; set; }
-
     }
 }
