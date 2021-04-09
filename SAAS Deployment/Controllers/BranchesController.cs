@@ -61,7 +61,12 @@ namespace SAAS_Deployment.Models
         {
             if (ModelState.IsValid)
             {
+                string dbConnectionString = string.Format("Server=(localdb)\\mssqllocaldb;Database=aspnet-SAAS_Deployment-{0};Trusted_Connection=True;MultipleActiveResultSets=true",
+                         branch.DbConnectionString);
+                branch.DbConnectionString = dbConnectionString;
+
                 _context.Add(branch);
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

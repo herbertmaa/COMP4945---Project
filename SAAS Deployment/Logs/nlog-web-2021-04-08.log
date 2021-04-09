@@ -200,3 +200,10 @@ System.ArgumentException: Format of the initialization string does not conform t
 2021-04-08 18:16:56.7288|ERROR|Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.DatabaseErrorPageMiddleware|An exception occurred while calculating the database error page content. Skipping display of the database error page.
 2021-04-08 18:16:56.7724|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
 2021-04-08 18:26:24.7869|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
+2021-04-08 18:28:18.7168|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
+2021-04-08 18:28:32.7719|INFO|SAAS_Deployment.Areas.Identity.Pages.Account.RegisterModel|User created a new account with password.
+2021-04-08 18:28:59.1541|INFO|SAAS_Deployment.Areas.Identity.Pages.Account.LogoutModel|User logged out.
+2021-04-08 18:29:02.2912|INFO|SAAS_Deployment.Areas.Identity.Pages.Account.LoginModel|User logged in.
+2021-04-08 18:29:15.1141|INFO|SAAS_Deployment.Areas.Identity.Pages.Account.LogoutModel|User logged out.
+2021-04-08 18:29:20.8667|INFO|SAAS_Deployment.Areas.Identity.Pages.Account.LoginModel|User logged in.
+2021-04-08 19:21:43.7516|INFO|SAAS_Deployment.Areas.Identity.Pages.Account.LoginModel|User logged in.
