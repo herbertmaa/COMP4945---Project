@@ -132,11 +132,3 @@ Error Number:4060,State:1,Class:11
 2021-04-08 13:35:40.4312|WARN|Microsoft.AspNetCore.Identity.UserManager|User 77450b5f-dc06-4503-8c30-93c88861225f password validation failed: PasswordRequiresNonAlphanumeric.
 2021-04-08 13:35:40.5541|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
 2021-04-08 13:36:12.1653|INFO|SAAS_Deployment.Areas.Identity.Pages.Account.RegisterModel|User created a new account with password.
-2021-04-08 19:12:32.7601|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
-2021-04-08 19:13:43.3341|INFO|SAAS_Deployment.Areas.Identity.Pages.Account.LogoutModel|User logged out.
-2021-04-08 19:27:29.8416|FATAL|Microsoft.AspNetCore.Hosting.WebHost|Application startup exception
-2021-04-08 19:30:47.9193|FATAL|Microsoft.AspNetCore.Hosting.WebHost|Application startup exception
-2021-04-08 19:31:34.5667|FATAL|Microsoft.AspNetCore.Hosting.WebHost|Application startup exception
-2021-04-08 19:43:52.0335|INFO|SAAS_Deployment.Areas.Identity.Pages.Account.LoginModel|User logged in.
-2021-04-08 19:44:04.4208|INFO|SAAS_Deployment.Areas.Identity.Pages.Account.LogoutModel|User logged out.
-2021-04-08 19:48:06.4249|INFO|SAAS_Deployment.Areas.Identity.Pages.Account.LoginModel|User logged in.
