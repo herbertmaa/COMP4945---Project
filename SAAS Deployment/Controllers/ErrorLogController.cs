@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace SAAS_Deployment.Controllers
 {
@@ -18,6 +18,8 @@ namespace SAAS_Deployment.Controllers
         {
             Environment = _environment;
         }
+
+        [Authorize(Policy = "writepolicy")]
         public ActionResult Index()
         {
             //this.Environment.WebRootPath for wwwroot folder listing if wanted
