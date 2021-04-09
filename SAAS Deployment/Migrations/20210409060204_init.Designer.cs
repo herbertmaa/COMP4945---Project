@@ -10,7 +10,7 @@ using SAAS_Deployment.Data;
 namespace SAAS_Deployment.Migrations
 {
     [DbContext(typeof(AuthDbContext))]
-    [Migration("20210407023305_init")]
+    [Migration("20210409060204_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,22 +50,22 @@ namespace SAAS_Deployment.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2fa2c5f8-fe71-4a1d-8a1d-2738cf34fb26",
-                            ConcurrencyStamp = "2fa2c5f8-fe71-4a1d-8a1d-2738cf34fb26",
+                            Id = "bc719814-8086-44c8-a939-7fd8041d3305",
+                            ConcurrencyStamp = "bc719814-8086-44c8-a939-7fd8041d3305",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "bac31785-3b2d-43ca-b3ca-144421f152bb",
-                            ConcurrencyStamp = "bac31785-3b2d-43ca-b3ca-144421f152bb",
+                            Id = "c6d53d87-ff31-46e6-8a1c-190c125cedd7",
+                            ConcurrencyStamp = "c6d53d87-ff31-46e6-8a1c-190c125cedd7",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         },
                         new
                         {
-                            Id = "bd9dd199-8b37-459a-ab7a-506436f8881a",
-                            ConcurrencyStamp = "bd9dd199-8b37-459a-ab7a-506436f8881a",
+                            Id = "53351f80-8ba6-45cf-8536-804bee2141ef",
+                            ConcurrencyStamp = "53351f80-8ba6-45cf-8536-804bee2141ef",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         });
@@ -158,8 +158,8 @@ namespace SAAS_Deployment.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "0358f5cd-92d2-44e8-a825-9100a9c1b9d5",
-                            RoleId = "2fa2c5f8-fe71-4a1d-8a1d-2738cf34fb26"
+                            UserId = "ed997374-b7d8-416b-bf71-5865cf42ece3",
+                            RoleId = "bc719814-8086-44c8-a939-7fd8041d3305"
                         });
                 });
 
@@ -252,18 +252,18 @@ namespace SAAS_Deployment.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "0358f5cd-92d2-44e8-a825-9100a9c1b9d5",
+                            Id = "ed997374-b7d8-416b-bf71-5865cf42ece3",
                             AccessFailedCount = 0,
                             BranchId = 1,
-                            ConcurrencyStamp = "ff7597c7-f20a-4a0a-8a64-5b8d1df03ff7",
+                            ConcurrencyStamp = "8d6ed2ad-9af9-41bf-9455-66eede7a46cc",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEN1KuacVrSD0VPqzony23LQlTCZ4+oElNCF4pURQHcyVWIjAok/YKFrInHdjosW+Sw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEH4jQ0i+q8PWO547DeK/S1LJgbudLZkW5RAIovktBuIzWqWYjLH8pzMq8vbv9Fw2sw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5f92e5d7-4ca8-4627-b702-6448dbb468f6",
+                            SecurityStamp = "2a24b5f1-988a-4578-94d1-dde83b570575",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         });
@@ -292,7 +292,7 @@ namespace SAAS_Deployment.Migrations
                         new
                         {
                             ID = 1,
-                            DbConnectionString = "Server=(localdb)\\mssqllocaldb;Database=aspnet-SAAS_Deployment-Headquarter;Trusted_Connection=True;MultipleActiveResultSets=true",
+                            DbConnectionString = "Server=tcp:saas-deployment.database.windows.net,1433;Database=Headquarter;User ID=user@saas-deployment;Password=Abc123!!;Trusted_Connection=False;Encrypt=True;",
                             Name = "Headquarter"
                         });
                 });

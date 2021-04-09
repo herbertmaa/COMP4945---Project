@@ -33,7 +33,8 @@ namespace SAAS_Deployment.Migrations.ApplicationDb
                     FirstName = table.Column<string>(nullable: false),
                     LastName = table.Column<string>(nullable: false),
                     Email = table.Column<string>(nullable: false),
-                    FullAddressID = table.Column<int>(nullable: true)
+                    FullAddressID = table.Column<int>(nullable: true),
+                    AdditionalInformation = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

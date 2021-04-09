@@ -1,0 +1,35 @@
+version : '3'
+
+services:
+    lb:
+        image: haproxy
+        ports: 
+            - "8888:8888"
+        volumes:
+            - ./haproxy:/usr/local/etc/haproxy
+    saasapp1:
+        image: saas
+        environment:
+            - ASPNETCORE_URLS=http://+:1111
+            - APPID=1
+        links:
+            - "redis_image"
+    saasapp2:
+        image: saas
+        environment:
+            - ASPNETCORE_URLS=http://+:2222
+            - APPID=2
+        links:
+            - "redis_image"
+    saasapp3:
+        image: saas
+        environment:
+            - ASPNETCORE_URLS=http://+:3333
+            - APPID=3
+        links:
+            - "redis_image"
+    redis_image:
+        image: redis
+        container_name: cache
+        ports:
+            - "6379:6379"

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using SAAS_Deployment.BranchProviders;
 using SAAS_Deployment.Data;
 using SAAS_Deployment.Models;
+using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,6 +53,10 @@ namespace SAAS_Deployment
                 options.AddPolicy("writepolicy",
                     builder => builder.RequireRole("Admin", "Manager"));
             });
+
+            var redis = ConnectionMultiplexer.Connect("redis_image:6379,abortConnect=False");
+            services.AddDataProtection()
+                .PersistKeysToStackExchangeRedis(redis, "DataProtection-Keys");
 
             services.AddScoped<IBranchProvider, BranchProvider>();
         }

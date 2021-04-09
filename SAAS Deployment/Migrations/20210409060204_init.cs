@@ -172,25 +172,25 @@ namespace SAAS_Deployment.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "2fa2c5f8-fe71-4a1d-8a1d-2738cf34fb26", "2fa2c5f8-fe71-4a1d-8a1d-2738cf34fb26", "Admin", "ADMIN" },
-                    { "bac31785-3b2d-43ca-b3ca-144421f152bb", "bac31785-3b2d-43ca-b3ca-144421f152bb", "Manager", "MANAGER" },
-                    { "bd9dd199-8b37-459a-ab7a-506436f8881a", "bd9dd199-8b37-459a-ab7a-506436f8881a", "Employee", "EMPLOYEE" }
+                    { "bc719814-8086-44c8-a939-7fd8041d3305", "bc719814-8086-44c8-a939-7fd8041d3305", "Admin", "ADMIN" },
+                    { "c6d53d87-ff31-46e6-8a1c-190c125cedd7", "c6d53d87-ff31-46e6-8a1c-190c125cedd7", "Manager", "MANAGER" },
+                    { "53351f80-8ba6-45cf-8536-804bee2141ef", "53351f80-8ba6-45cf-8536-804bee2141ef", "Employee", "EMPLOYEE" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "BranchId", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "0358f5cd-92d2-44e8-a825-9100a9c1b9d5", 0, 1, "ff7597c7-f20a-4a0a-8a64-5b8d1df03ff7", "admin@gmail.com", true, false, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAEN1KuacVrSD0VPqzony23LQlTCZ4+oElNCF4pURQHcyVWIjAok/YKFrInHdjosW+Sw==", null, false, "5f92e5d7-4ca8-4627-b702-6448dbb468f6", false, "admin@gmail.com" });
+                values: new object[] { "ed997374-b7d8-416b-bf71-5865cf42ece3", 0, 1, "8d6ed2ad-9af9-41bf-9455-66eede7a46cc", "admin@gmail.com", true, false, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAEH4jQ0i+q8PWO547DeK/S1LJgbudLZkW5RAIovktBuIzWqWYjLH8pzMq8vbv9Fw2sw==", null, false, "2a24b5f1-988a-4578-94d1-dde83b570575", false, "admin@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "Branch",
                 columns: new[] { "ID", "DbConnectionString", "Name" },
-                values: new object[] { 1, "Server=(localdb)\\mssqllocaldb;Database=aspnet-SAAS_Deployment-Headquarter;Trusted_Connection=True;MultipleActiveResultSets=true", "Headquarter" });
+                values: new object[] { 1, "Server=tcp:saas-deployment.database.windows.net,1433;Database=Headquarter;User ID=user@saas-deployment;Password=Abc123!!;Trusted_Connection=False;Encrypt=True;", "Headquarter" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "UserId", "RoleId" },
-                values: new object[] { "0358f5cd-92d2-44e8-a825-9100a9c1b9d5", "2fa2c5f8-fe71-4a1d-8a1d-2738cf34fb26" });
+                values: new object[] { "ed997374-b7d8-416b-bf71-5865cf42ece3", "bc719814-8086-44c8-a939-7fd8041d3305" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
