@@ -63,10 +63,18 @@ namespace SAAS_Deployment.Controllers
         [ValidateAntiForgeryToken]
         [Authorize(Policy = "writepolicy")]
         public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Email")] Client client,
-            [Bind("Street,City,PostalCode,Province,Country")] FullAddress fullAddress)
+            [Bind("Street,City,PostalCode,Province,Country")] FullAddress fullAddress, [FromForm] string[] ExtraValueName, [FromForm] string[] Value)
         {
             if (ModelState.IsValid)
             {
+                string jsonString = "";
+
+                for (int i = 0; i < ExtraValueName.Length; i++)
+                {
+                    jsonString += ExtraValueName[i] + ":" + Value[i] + ",";
+                }
+
+                client.AdditionalInformation = jsonString;
                 client.FullAddress = fullAddress;
                 _context.Add(client);
                 await _context.SaveChangesAsync();
@@ -99,7 +107,7 @@ namespace SAAS_Deployment.Controllers
         [ValidateAntiForgeryToken]
         [Authorize(Policy = "writepolicy")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Email")] Client client,
-            [Bind("ID,Street,City,PostalCode,Province,Country")] FullAddress fullAddress)
+            [Bind("ID,Street,City,PostalCode,Province,Country")] FullAddress fullAddress, [FromForm] string[] ExtraValueName, [FromForm] string[] Value)
         {
             if (id != client.Id)
             {
@@ -108,6 +116,15 @@ namespace SAAS_Deployment.Controllers
 
             if (ModelState.IsValid)
             {
+
+                string jsonString = "";
+
+                for (int i = 0; i < ExtraValueName.Length; i++)
+                {
+                    jsonString += ExtraValueName[i] + ":" + Value[i] + ",";
+                }
+
+                client.AdditionalInformation = jsonString;
                 try
                 {
                     _context.Update(fullAddress);

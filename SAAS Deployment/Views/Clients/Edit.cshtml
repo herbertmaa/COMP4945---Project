@@ -28,7 +28,25 @@
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-            <partial name="_FullAddressPartial"  for="FullAddress" />
+            <partial name="_FullAddressPartial" for="FullAddress" />
+
+            @{
+                string[] pairs = Model.AdditionalInformation.Split(',');
+
+                for (int i = 0; i < pairs.Length; i++)
+                {
+                    if (pairs[i].Length == 0) break;
+                    string[] keyValue = pairs[i].Split(':');
+
+                    <div class="row">
+                        <input type="text" class="ExtraValueName" name="ExtraValueName" value="@keyValue[0]" />
+                        <input type="text" class="Value" name="Value" value="@keyValue[1]" />
+                        <br />
+                    </div>
+                }
+            }
+
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
