@@ -11,6 +11,7 @@ namespace Unit_Tests
 {
     public class EmployeeUnitTest
     {
+        string url = "http://localhost:5000/Employees";
         private ChromeDriver CreateDriver()
         {
             string path = Directory.GetCurrentDirectory();
@@ -21,7 +22,6 @@ namespace Unit_Tests
         [Test, Order(1)]
         public void CreateEmployee()
         {
-            string url = "https://localhost:44372/Employees";
             ChromeDriver driver = CreateDriver();
             driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl(url);
@@ -63,7 +63,6 @@ namespace Unit_Tests
         [Test, Order(2)]
         public void EditEmployee()
         {
-            string url = "https://localhost:44372/Employees";
             ChromeDriver driver = CreateDriver();
             driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl(url);
@@ -115,7 +114,6 @@ namespace Unit_Tests
         [Test, Order(3)]
         public void DetailsEditEmployee()
         {
-            string url = "https://localhost:44372/Employees";
             ChromeDriver driver = CreateDriver();
             driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl(url);
@@ -147,7 +145,6 @@ namespace Unit_Tests
         [Test, Order(4)]
         public void DeleteEmployee()
         {
-            string url = "https://localhost:44372/Employees";
             ChromeDriver driver = CreateDriver();
             driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl(url);

@@ -11,7 +11,7 @@ namespace Unit_Tests
     [TestClass]
     class Login_RegisterTest
     {
-        private string url = "https://localhost:44372";
+        private string url = "http://localhost:5000";
         private ChromeDriver CreateDriver()
         {
             string path = Directory.GetCurrentDirectory();

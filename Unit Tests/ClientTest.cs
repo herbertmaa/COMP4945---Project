@@ -13,6 +13,8 @@ namespace Unit_Tests
     [TestClass]
     class ClientTest
     {
+        private string url = "http://localhost:5000/Clients";
+
         private ChromeDriver CreateDriver()
         {
             string path = Directory.GetCurrentDirectory();
@@ -22,7 +24,6 @@ namespace Unit_Tests
         [Test, Order(1)]
         public void CreateEmployee()
         {
-            string url = "https://localhost:44372/Clients";
             ChromeDriver driver = CreateDriver();
             driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl(url);
@@ -52,7 +53,6 @@ namespace Unit_Tests
         [Test, Order(2)]
         public void EditClient()
         {
-            string url = "https://localhost:44372/Clients";
             ChromeDriver driver = CreateDriver();
             driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl(url);
@@ -92,7 +92,6 @@ namespace Unit_Tests
         [Test, Order(3)]
         public void DetailsEditClient()
         {
-            string url = "https://localhost:44372/Clients";
             ChromeDriver driver = CreateDriver();
             driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl(url);
@@ -119,7 +118,6 @@ namespace Unit_Tests
         [Test, Order(4)]
         public void DeleteClient()
         {
-            string url = "https://localhost:44372/Clients";
             ChromeDriver driver = CreateDriver();
             driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl(url);
