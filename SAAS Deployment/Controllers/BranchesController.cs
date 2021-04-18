@@ -36,7 +36,7 @@ namespace SAAS_Deployment.Models
             }
 
             var branch = await _context.Branch
-                .FirstOrDefaultAsync(m => m.ID == id);
+                .FirstOrDefaultAsync(m => m.BranchId == id);
             if (branch == null)
             {
                 return NotFound();
@@ -92,7 +92,7 @@ namespace SAAS_Deployment.Models
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Name,DbConnectionString")] Branch branch)
         {
-            if (id != branch.ID)
+            if (id != branch.BranchId)
             {
                 return NotFound();
             }
@@ -106,7 +106,7 @@ namespace SAAS_Deployment.Models
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BranchExists(branch.ID))
+                    if (!BranchExists(branch.BranchId))
                     {
                         return NotFound();
                     }
@@ -130,7 +130,7 @@ namespace SAAS_Deployment.Models
             }
 
             var branch = await _context.Branch
-                .FirstOrDefaultAsync(m => m.ID == id);
+                .FirstOrDefaultAsync(m => m.BranchId == id);
             if (branch == null)
             {
                 return NotFound();
@@ -152,7 +152,7 @@ namespace SAAS_Deployment.Models
 
         private bool BranchExists(int id)
         {
-            return _context.Branch.Any(e => e.ID == id);
+            return _context.Branch.Any(e => e.BranchId == id);
         }
     }
 }

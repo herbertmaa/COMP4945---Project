@@ -40,7 +40,7 @@ namespace SAAS_Deployment.Controllers
             }
 
             var client = await _context.Client.Include(c => c.FullAddress)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Person_Id == id);
             if (client == null)
             {
                 return NotFound();
@@ -92,7 +92,7 @@ namespace SAAS_Deployment.Controllers
                 return NotFound();
             }
 
-            var client = await _context.Client.Include(c => c.FullAddress).FirstOrDefaultAsync(c => c.Id == id);
+            var client = await _context.Client.Include(c => c.FullAddress).FirstOrDefaultAsync(c => c.Person_Id == id);
             if (client == null)
             {
                 return NotFound();
@@ -109,7 +109,7 @@ namespace SAAS_Deployment.Controllers
         public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Email")] Client client,
             [Bind("ID,Street,City,PostalCode,Province,Country")] FullAddress fullAddress, [FromForm] string[] ExtraValueName, [FromForm] string[] Value)
         {
-            if (id != client.Id)
+            if (id != client.Person_Id)
             {
                 return NotFound();
             }
@@ -133,7 +133,7 @@ namespace SAAS_Deployment.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ClientExists(client.Id))
+                    if (!ClientExists(client.Person_Id))
                     {
                         return NotFound();
                     }
@@ -157,7 +157,7 @@ namespace SAAS_Deployment.Controllers
             }
 
             var client = await _context.Client
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Person_Id == id);
             if (client == null)
             {
                 return NotFound();
@@ -172,7 +172,7 @@ namespace SAAS_Deployment.Controllers
         [Authorize(Policy = "writepolicy")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var client = await _context.Client.Include(c => c.FullAddress).FirstOrDefaultAsync(c => c.Id == id);
+            var client = await _context.Client.Include(c => c.FullAddress).FirstOrDefaultAsync(c => c.Person_Id == id);
             _context.FullAddress.Remove(client.FullAddress);
             _context.Client.Remove(client);
             await _context.SaveChangesAsync();
@@ -188,7 +188,7 @@ namespace SAAS_Deployment.Controllers
                 return NotFound();
             }
 
-            var client = await _context.Client.Include(c => c.FullAddress).FirstOrDefaultAsync(c => c.Id == id);
+            var client = await _context.Client.Include(c => c.FullAddress).FirstOrDefaultAsync(c => c.Person_Id == id);
             if (client == null)
             {
                 return NotFound();
@@ -203,7 +203,7 @@ namespace SAAS_Deployment.Controllers
         [Authorize(Policy = "writepolicy")]
         public async Task<IActionResult> TransferConfirmed(int id, int transferBranchId)
         {
-            var client = await _context.Client.Include(c => c.FullAddress).FirstOrDefaultAsync(c => c.Id == id);
+            var client = await _context.Client.Include(c => c.FullAddress).FirstOrDefaultAsync(c => c.Person_Id == id);
             var address = client.FullAddress;
 
             Branch Branch = await _authContext.Branch.FindAsync(transferBranchId);
@@ -220,8 +220,8 @@ namespace SAAS_Deployment.Controllers
             _context.Client.Remove(client);
             await _context.SaveChangesAsync();
 
-            client.Id = 0;
-            address.ID = 0;
+            client.Person_Id = 0;
+            address.FullAddress_Id = 0;
 
             client.FullAddress = address;
             var addedEmployee = await targetDbContext.Client.AddAsync(client);
@@ -233,7 +233,7 @@ namespace SAAS_Deployment.Controllers
 
         private bool ClientExists(int id)
         {
-            return _context.Client.Any(e => e.Id == id);
+            return _context.Client.Any(e => e.Person_Id == id);
         }
     }
 }

@@ -23,5 +23,14 @@ namespace SAAS_Deployment.Data
             optionsBuilder.UseSqlServer(_branch.DbConnectionString);
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<EmployeeHobby>().HasKey(eh => new { eh.EmployeeId, eh.HobbyId });
+            modelBuilder.Entity<Person>()
+                .HasOne<FullAddress>(p => p.FullAddress)
+                .WithOne(fa => fa.Person)
+                .HasForeignKey<FullAddress>(fa => fa.Person_Id);
+        }
+
     }
 }

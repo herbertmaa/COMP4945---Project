@@ -1,0 +1,17 @@
+2021-04-12 11:43:05.5009|INFO|SAAS_Deployment.Areas.Identity.Pages.Account.LoginModel|User logged in.
+2021-04-12 11:43:27.5602|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
+2021-04-12 11:43:36.8067|INFO|SAAS_Deployment.Areas.Identity.Pages.Account.LogoutModel|User logged out.
+2021-04-12 11:43:49.1960|INFO|SAAS_Deployment.Areas.Identity.Pages.Account.LoginModel|User logged in.
+2021-04-12 11:43:53.0923|INFO|SAAS_Deployment.Areas.Identity.Pages.Account.LogoutModel|User logged out.
+2021-04-12 11:44:01.9756|INFO|SAAS_Deployment.Areas.Identity.Pages.Account.LoginModel|User logged in.
+2021-04-12 11:44:16.0722|INFO|SAAS_Deployment.Areas.Identity.Pages.Account.LogoutModel|User logged out.
+2021-04-12 11:44:28.1237|INFO|SAAS_Deployment.Areas.Identity.Pages.Account.LoginModel|User logged in.
+2021-04-12 11:44:33.4937|INFO|SAAS_Deployment.Areas.Identity.Pages.Account.LogoutModel|User logged out.
+2021-04-12 11:47:14.1460|INFO|SAAS_Deployment.Areas.Identity.Pages.Account.LoginModel|User logged in.
+2021-04-12 11:47:54.2041|INFO|SAAS_Deployment.Areas.Identity.Pages.Account.LogoutModel|User logged out.
+2021-04-12 11:48:07.2024|INFO|SAAS_Deployment.Areas.Identity.Pages.Account.LoginModel|User logged in.
+2021-04-12 11:49:34.1962|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
+2021-04-12 11:49:40.0315|INFO|SAAS_Deployment.Areas.Identity.Pages.Account.LogoutModel|User logged out.
+2021-04-12 11:55:38.5237|INFO|SAAS_Deployment.Areas.Identity.Pages.Account.LoginModel|User logged in.
+2021-04-12 11:56:17.0403|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
+2021-04-12 12:18:22.9077|INFO|SAAS_Deployment.Areas.Identity.Pages.Account.LoginModel|User logged in.

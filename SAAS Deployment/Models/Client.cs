@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace SAAS_Deployment.Models
-{
+{   
     public class Client : Person
     {
         [DisplayName("Additional Information")]

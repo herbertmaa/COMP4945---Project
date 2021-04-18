@@ -6,14 +6,11 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace SAAS_Deployment.Models
-{
+{   
     public class Person
     {
-        public Person() { }
-
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key, Column(Order = 0)]
-        public int Id { get; set; }
+        [Key]
+        public int Person_Id { get; set; }
 
         [Required]
         public string FirstName { get; set; }

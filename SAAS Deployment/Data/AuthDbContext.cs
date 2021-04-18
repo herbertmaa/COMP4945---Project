@@ -54,7 +54,7 @@ namespace SAAS_Deployment.Data
             builder.Entity<ApplicationUser>().HasData(appUser);
             builder.Entity<Branch>().HasData(new Branch
             {
-                ID = 1,
+                BranchId = 1,
                 Name = "Headquarter",
                 DbConnectionString = "Server=(localdb)\\mssqllocaldb;Database=aspnet-SAAS_Deployment-Headquarter;Trusted_Connection=True;MultipleActiveResultSets=true"
             });

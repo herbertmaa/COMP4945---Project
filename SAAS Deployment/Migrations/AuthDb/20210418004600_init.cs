@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace SAAS_Deployment.Migrations
+namespace SAAS_Deployment.Migrations.AuthDb
 {
     public partial class init : Migration
     {
@@ -19,6 +19,41 @@ namespace SAAS_Deployment.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetRoles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Branch",
+                columns: table => new
+                {
+                    BranchId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: false),
+                    DbConnectionString = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Branch", x => x.BranchId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetRoleClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoleId = table.Column<string>(nullable: false),
+                    ClaimType = table.Column<string>(nullable: true),
+                    ClaimValue = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetRoleClaims", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -45,40 +80,11 @@ namespace SAAS_Deployment.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Branch",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: false),
-                    DbConnectionString = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Branch", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetRoleClaims",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleId = table.Column<string>(nullable: false),
-                    ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetRoleClaims", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "AspNetRoles",
-                        principalColumn: "Id",
+                        name: "FK_AspNetUsers_Branch_BranchId",
+                        column: x => x.BranchId,
+                        principalTable: "Branch",
+                        principalColumn: "BranchId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -172,25 +178,25 @@ namespace SAAS_Deployment.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "2fa2c5f8-fe71-4a1d-8a1d-2738cf34fb26", "2fa2c5f8-fe71-4a1d-8a1d-2738cf34fb26", "Admin", "ADMIN" },
-                    { "bac31785-3b2d-43ca-b3ca-144421f152bb", "bac31785-3b2d-43ca-b3ca-144421f152bb", "Manager", "MANAGER" },
-                    { "bd9dd199-8b37-459a-ab7a-506436f8881a", "bd9dd199-8b37-459a-ab7a-506436f8881a", "Employee", "EMPLOYEE" }
+                    { "3eeaceba-8cc6-4f76-a230-fb8ee9fa5322", "3eeaceba-8cc6-4f76-a230-fb8ee9fa5322", "Admin", "ADMIN" },
+                    { "e34ce20e-841d-4063-bc93-d70ce828ca8e", "e34ce20e-841d-4063-bc93-d70ce828ca8e", "Manager", "MANAGER" },
+                    { "91045e5e-a2d2-44e6-8e33-4fde0096d765", "91045e5e-a2d2-44e6-8e33-4fde0096d765", "Employee", "EMPLOYEE" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "Branch",
+                columns: new[] { "BranchId", "DbConnectionString", "Name" },
+                values: new object[] { 1, "Server=(localdb)\\mssqllocaldb;Database=aspnet-SAAS_Deployment-Headquarter;Trusted_Connection=True;MultipleActiveResultSets=true", "Headquarter" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "BranchId", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "0358f5cd-92d2-44e8-a825-9100a9c1b9d5", 0, 1, "ff7597c7-f20a-4a0a-8a64-5b8d1df03ff7", "admin@gmail.com", true, false, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAEN1KuacVrSD0VPqzony23LQlTCZ4+oElNCF4pURQHcyVWIjAok/YKFrInHdjosW+Sw==", null, false, "5f92e5d7-4ca8-4627-b702-6448dbb468f6", false, "admin@gmail.com" });
-
-            migrationBuilder.InsertData(
-                table: "Branch",
-                columns: new[] { "ID", "DbConnectionString", "Name" },
-                values: new object[] { 1, "Server=(localdb)\\mssqllocaldb;Database=aspnet-SAAS_Deployment-Headquarter;Trusted_Connection=True;MultipleActiveResultSets=true", "Headquarter" });
+                values: new object[] { "68d95ebd-4a06-47ae-83f5-59b95371371b", 0, 1, "892f05ab-3685-441b-9031-0bda8716c501", "admin@gmail.com", true, false, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAEKj146PUeuUBdwS4SKse7XmwXi9q28+U24XKjSc1bhH62xxdqPoS+6se2lfd513EZg==", null, false, "8cda0430-930f-4db3-a8f9-430cc5fff7f7", false, "admin@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "UserId", "RoleId" },
-                values: new object[] { "0358f5cd-92d2-44e8-a825-9100a9c1b9d5", "2fa2c5f8-fe71-4a1d-8a1d-2738cf34fb26" });
+                values: new object[] { "68d95ebd-4a06-47ae-83f5-59b95371371b", "3eeaceba-8cc6-4f76-a230-fb8ee9fa5322" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -218,6 +224,11 @@ namespace SAAS_Deployment.Migrations
                 name: "IX_AspNetUserRoles_RoleId",
                 table: "AspNetUserRoles",
                 column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_BranchId",
+                table: "AspNetUsers",
+                column: "BranchId");
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",
@@ -250,13 +261,13 @@ namespace SAAS_Deployment.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Branch");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Branch");
         }
     }
 }

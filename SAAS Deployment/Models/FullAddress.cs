@@ -10,16 +10,19 @@ namespace SAAS_Deployment.Models
     public class FullAddress
     {
         [Key]
-        public int ID { get; set; }
+        public int FullAddress_Id { get; set; }
 
         public string Street { get; set; }
 
         public string City { get; set; }
-
+        [MaxLength(7)]
         public string PostalCode { get; set; }
 
         public string Province { get; set; }
 
         public string Country { get; set; }
+
+        public int Person_Id { get; set; }
+        public virtual Person Person { get; set; }
     }
 }

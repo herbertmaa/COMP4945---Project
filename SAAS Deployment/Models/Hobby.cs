@@ -6,15 +6,12 @@ using System.Threading.Tasks;
 
 namespace SAAS_Deployment.Models
 {
-    public class Branch
+    public class Hobby
     {
         [Key]
-        public int BranchId { get; set; }
-        [Required]
+        public int HobbyId { get; set; }
         public string Name { get; set; }
-        [Required]
-        public string DbConnectionString { get; set; }
 
-        public IList<ApplicationUser> Users { get; set; }
+        public IList<EmployeeHobby> EmployeeHobby { get; set; }
     }
 }

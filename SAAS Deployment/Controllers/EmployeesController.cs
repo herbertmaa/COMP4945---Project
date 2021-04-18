@@ -40,7 +40,7 @@ namespace SAAS_Deployment.Controllers
             }
 
             var employee = await _context.Employee.Include(e => e.FullAddress)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Person_Id == id);
             if (employee == null)
             {
                 return NotFound();
@@ -84,7 +84,7 @@ namespace SAAS_Deployment.Controllers
                 return NotFound();
             }
 
-            var employee = await _context.Employee.Include(e => e.FullAddress).FirstOrDefaultAsync(e => e.Id == id);
+            var employee = await _context.Employee.Include(e => e.FullAddress).FirstOrDefaultAsync(e => e.Person_Id == id);
             if (employee == null)
             {
                 return NotFound();
@@ -101,7 +101,7 @@ namespace SAAS_Deployment.Controllers
         public async Task<IActionResult> Edit(int id, [Bind("DateJoined,EmerContact,Id,FirstName,LastName,Email")] Employee employee,
             [Bind("ID,Street,City,PostalCode,Province,Country")] FullAddress fullAddress)
         {
-            if (id != employee.Id)
+            if (id != employee.Person_Id)
             {
                 return NotFound();
             }
@@ -116,7 +116,7 @@ namespace SAAS_Deployment.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EmployeeExists(employee.Id))
+                    if (!EmployeeExists(employee.Person_Id))
                     {
                         return NotFound();
                     }
@@ -140,7 +140,7 @@ namespace SAAS_Deployment.Controllers
             }
 
             var employee = await _context.Employee
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Person_Id == id);
             if (employee == null)
             {
                 return NotFound();
@@ -155,7 +155,7 @@ namespace SAAS_Deployment.Controllers
         [Authorize(Policy = "writepolicy")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var employee = await _context.Employee.Include(c => c.FullAddress).FirstOrDefaultAsync(c => c.Id == id);
+            var employee = await _context.Employee.Include(c => c.FullAddress).FirstOrDefaultAsync(c => c.Person_Id == id);
             _context.FullAddress.Remove(employee.FullAddress);
             _context.Employee.Remove(employee);
             await _context.SaveChangesAsync();
@@ -171,7 +171,7 @@ namespace SAAS_Deployment.Controllers
                 return NotFound();
             }
 
-            var employee = await _context.Employee.Include(e => e.FullAddress).FirstOrDefaultAsync(e => e.Id == id);
+            var employee = await _context.Employee.Include(e => e.FullAddress).FirstOrDefaultAsync(e => e.Person_Id == id);
             if (employee == null)
             {
                 return NotFound();
@@ -186,7 +186,7 @@ namespace SAAS_Deployment.Controllers
         [Authorize(Policy = "writepolicy")]
         public async Task<IActionResult> TransferConfirmed(int id, int transferBranchId)
         {
-            var employee = await _context.Employee.Include(c => c.FullAddress).FirstOrDefaultAsync(c => c.Id == id);
+            var employee = await _context.Employee.Include(c => c.FullAddress).FirstOrDefaultAsync(c => c.Person_Id == id);
             var address = employee.FullAddress;
 
             Branch Branch = await _authContext.Branch.FindAsync(transferBranchId);
@@ -203,8 +203,8 @@ namespace SAAS_Deployment.Controllers
             _context.Employee.Remove(employee);
             await _context.SaveChangesAsync();
 
-            employee.Id = 0;
-            address.ID = 0;
+            employee.Person_Id = 0;
+            address.FullAddress_Id = 0;
 
             employee.FullAddress = address;
             var addedEmployee = await targetDbContext.Employee.AddAsync(employee);
@@ -215,7 +215,7 @@ namespace SAAS_Deployment.Controllers
 
         private bool EmployeeExists(int id)
         {
-            return _context.Employee.Any(e => e.Id == id);
+            return _context.Employee.Any(e => e.Person_Id == id);
         }
     }
 }

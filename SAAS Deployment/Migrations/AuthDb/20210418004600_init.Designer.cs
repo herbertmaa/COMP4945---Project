@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SAAS_Deployment.Data;
 
-namespace SAAS_Deployment.Migrations
+namespace SAAS_Deployment.Migrations.AuthDb
 {
     [DbContext(typeof(AuthDbContext))]
-    partial class AuthDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210418004600_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,22 +50,22 @@ namespace SAAS_Deployment.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2fa2c5f8-fe71-4a1d-8a1d-2738cf34fb26",
-                            ConcurrencyStamp = "2fa2c5f8-fe71-4a1d-8a1d-2738cf34fb26",
+                            Id = "3eeaceba-8cc6-4f76-a230-fb8ee9fa5322",
+                            ConcurrencyStamp = "3eeaceba-8cc6-4f76-a230-fb8ee9fa5322",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "bac31785-3b2d-43ca-b3ca-144421f152bb",
-                            ConcurrencyStamp = "bac31785-3b2d-43ca-b3ca-144421f152bb",
+                            Id = "e34ce20e-841d-4063-bc93-d70ce828ca8e",
+                            ConcurrencyStamp = "e34ce20e-841d-4063-bc93-d70ce828ca8e",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         },
                         new
                         {
-                            Id = "bd9dd199-8b37-459a-ab7a-506436f8881a",
-                            ConcurrencyStamp = "bd9dd199-8b37-459a-ab7a-506436f8881a",
+                            Id = "91045e5e-a2d2-44e6-8e33-4fde0096d765",
+                            ConcurrencyStamp = "91045e5e-a2d2-44e6-8e33-4fde0096d765",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         });
@@ -156,8 +158,8 @@ namespace SAAS_Deployment.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "0358f5cd-92d2-44e8-a825-9100a9c1b9d5",
-                            RoleId = "2fa2c5f8-fe71-4a1d-8a1d-2738cf34fb26"
+                            UserId = "68d95ebd-4a06-47ae-83f5-59b95371371b",
+                            RoleId = "3eeaceba-8cc6-4f76-a230-fb8ee9fa5322"
                         });
                 });
 
@@ -237,6 +239,8 @@ namespace SAAS_Deployment.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BranchId");
+
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
 
@@ -250,18 +254,18 @@ namespace SAAS_Deployment.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "0358f5cd-92d2-44e8-a825-9100a9c1b9d5",
+                            Id = "68d95ebd-4a06-47ae-83f5-59b95371371b",
                             AccessFailedCount = 0,
                             BranchId = 1,
-                            ConcurrencyStamp = "ff7597c7-f20a-4a0a-8a64-5b8d1df03ff7",
+                            ConcurrencyStamp = "892f05ab-3685-441b-9031-0bda8716c501",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEN1KuacVrSD0VPqzony23LQlTCZ4+oElNCF4pURQHcyVWIjAok/YKFrInHdjosW+Sw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKj146PUeuUBdwS4SKse7XmwXi9q28+U24XKjSc1bhH62xxdqPoS+6se2lfd513EZg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5f92e5d7-4ca8-4627-b702-6448dbb468f6",
+                            SecurityStamp = "8cda0430-930f-4db3-a8f9-430cc5fff7f7",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         });
@@ -269,7 +273,7 @@ namespace SAAS_Deployment.Migrations
 
             modelBuilder.Entity("SAAS_Deployment.Models.Branch", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("BranchId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -282,14 +286,14 @@ namespace SAAS_Deployment.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ID");
+                    b.HasKey("BranchId");
 
                     b.ToTable("Branch");
 
                     b.HasData(
                         new
                         {
-                            ID = 1,
+                            BranchId = 1,
                             DbConnectionString = "Server=(localdb)\\mssqllocaldb;Database=aspnet-SAAS_Deployment-Headquarter;Trusted_Connection=True;MultipleActiveResultSets=true",
                             Name = "Headquarter"
                         });
@@ -342,6 +346,15 @@ namespace SAAS_Deployment.Migrations
                     b.HasOne("SAAS_Deployment.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SAAS_Deployment.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("SAAS_Deployment.Models.Branch", "Branch")
+                        .WithMany("Users")
+                        .HasForeignKey("BranchId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

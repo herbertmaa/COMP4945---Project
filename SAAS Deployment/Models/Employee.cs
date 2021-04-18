@@ -7,13 +7,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 
 namespace SAAS_Deployment.Models
-{
+{   
     public class Employee : Person
     {
         [Required]
         public DateTime DateJoined { get; set; }
-        
+
         [Required]
         public string EmerContact { get; set; }
+
+        public IList<EmployeeHobby> EmployeeHobby { get; set; }
     }
 }

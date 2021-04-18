@@ -59,10 +59,10 @@
                 @Html.DisplayFor(modelItem => item.FullAddress.PostalCode)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
-                <a asp-action="Transfer" asp-route-id="@item.Id">Transfer</a>
+                <a asp-action="Edit" asp-route-id="@item.Person_Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Person_Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Person_Id">Delete</a> |
+                <a asp-action="Transfer" asp-route-id="@item.Person_Id">Transfer</a>
             </td>
         </tr>
 }
