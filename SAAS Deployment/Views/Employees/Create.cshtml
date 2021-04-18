@@ -37,7 +37,21 @@
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-            <partial name="_FullAddressPartial" for="FullAddress"/>
+            <partial name="_FullAddressPartial" for="FullAddress" />
+            <div class="form-group">
+                <label> Descriptions </label>
+                @{
+                    foreach (var description in ViewBag.DescriptionOptions)
+                    {
+                        <input type="checkbox" name="Description" value="@description.EmployeeDescriptionId">
+                        <label for="@description.Description">@description.Description</label>
+                    }
+
+                }
+            </div>
+
+
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

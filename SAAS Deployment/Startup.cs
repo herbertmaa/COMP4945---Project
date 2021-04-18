@@ -75,6 +75,7 @@ namespace SAAS_Deployment
 
             app.UseRouting();
 
+
             app.UseAuthentication();
             app.UseAuthorization();
 

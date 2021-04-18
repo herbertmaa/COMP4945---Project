@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 
 namespace SAAS_Deployment.Models
@@ -15,5 +16,8 @@ namespace SAAS_Deployment.Models
         
         [Required]
         public string EmerContact { get; set; }
+
+        public IList<EmployeeDescriptions> EmployeeDescriptions { get; set; }
+
     }
 }

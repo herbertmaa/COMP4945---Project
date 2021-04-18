@@ -14,5 +14,6 @@ namespace SAAS_Deployment.Models
         public string Name { get; set; }
         [Required]
         public string DbConnectionString { get; set; }
+
     }
 }

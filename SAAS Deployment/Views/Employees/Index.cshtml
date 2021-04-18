@@ -30,7 +30,13 @@
             <th>
                 Address
             </th>
-            <th></th>
+            <th>
+                Descriptions
+            </th>
+
+            <th>
+                
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -57,6 +63,20 @@
                 @Html.DisplayFor(modelItem => item.FullAddress.Province),
                 @Html.DisplayFor(modelItem => item.FullAddress.Country),
                 @Html.DisplayFor(modelItem => item.FullAddress.PostalCode)
+            </td>
+
+            <td>
+
+                <ul>
+                    @foreach (var eds in item.EmployeeDescriptions)
+                    {
+
+                        <li> @eds.EmployeeDescription.Description</li>
+
+                    }
+                </ul>
+
+
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

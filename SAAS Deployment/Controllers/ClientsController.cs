@@ -108,7 +108,8 @@ namespace SAAS_Deployment.Controllers
         [Authorize(Policy = "writepolicy")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Email")] Client client,
             [Bind("ID,Street,City,PostalCode,Province,Country")] FullAddress fullAddress, [FromForm] string[] ExtraValueName, [FromForm] string[] Value)
-        {
+        {   
+           
             if (id != client.Id)
             {
                 return NotFound();
@@ -235,5 +236,6 @@ namespace SAAS_Deployment.Controllers
         {
             return _context.Client.Any(e => e.Id == id);
         }
+
     }
 }

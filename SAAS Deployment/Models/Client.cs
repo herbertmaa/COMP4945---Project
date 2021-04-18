@@ -10,6 +10,7 @@ namespace SAAS_Deployment.Models
 {
     public class Client : Person
     {
+        [StringLength(50)]
         [DisplayName("Additional Information")]
         public string AdditionalInformation { get; set; }
     }
